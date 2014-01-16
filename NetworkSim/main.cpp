@@ -1,5 +1,6 @@
 #include <QtGui/QGuiApplication>
 #include "qtquick2applicationviewer.h"
+#include <QScreen>
 
 int main(int argc, char *argv[])
 {
@@ -7,7 +8,7 @@ int main(int argc, char *argv[])
 
     QtQuick2ApplicationViewer viewer;
     viewer.setMainQmlFile(QStringLiteral("qml/NetworkSim/main.qml"));
-    viewer.showExpanded();
 
+    viewer.showExpanded();
     return app.exec();
 }
