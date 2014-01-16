@@ -28,13 +28,13 @@ Item {
         Nodes {
             id: myNode
 
-            x: 100
-            y: 100
+            x: 103
+            y: 118
 
             Packet {
                 id: packet_1
-
             }
+
             MouseArea {
                 anchors.fill: parent;
 
@@ -43,6 +43,13 @@ Item {
                     console.log("clicked")
                 }
             }
+        }
+
+        Link2 {
+            x1: 300
+            y1: 100
+            x2: 100
+            y2:  40
         }
 
         RoutingTable {
