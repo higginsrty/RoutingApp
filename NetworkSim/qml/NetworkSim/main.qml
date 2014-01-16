@@ -25,19 +25,28 @@ Item {
             height: parent.height - action_bar.height
         }
 
-        RoutingTable {
-            id: route_table
-            visible: false
-        }
+        Nodes {
+            id: myNode
 
-        /*Node {
-            id: node_1
+            x: 100
+            y: 100
 
             Packet {
                 id: packet_1
-                x: 57
-                y: 109
+
             }
-        }*/
+            MouseArea {
+                anchors.fill: parent;
+
+                onClicked: {
+                   (route_table.visible == true) ? route_table.visible = false : route_table.visible = true
+                    console.log("clicked")
+                }
+            }
+        }
+
+        RoutingTable {
+            id: route_table
+        }
     }
 }

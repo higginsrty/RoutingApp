@@ -22,6 +22,7 @@ OTHER_FILES += \
     android/AndroidManifest.xml \
     qml/NetworkSim/Packet.qml \
     qml/NetworkSim/RoutingTable.qml \
-    qml/NetworkSim/PressHoldNodeMenu.qml
+    qml/NetworkSim/PressHoldNodeMenu.qml \
+    qml/NetworkSim/Nodes.qml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
