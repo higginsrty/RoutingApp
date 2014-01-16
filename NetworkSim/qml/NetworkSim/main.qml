@@ -28,5 +28,20 @@ Item {
                 color: "blue"
             }
         }
+
+        RoutingTable {
+            id: route_table
+            visible: false
+        }
+
+        Node {
+            id: node_1
+
+            Packet {
+                id: packet_1
+                x: 57
+                y: 109
+            }
+        }
     }
 }
