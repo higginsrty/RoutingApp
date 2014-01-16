@@ -12,6 +12,8 @@ SOURCES += main.cpp \
     node.cpp \
     packet.cpp
 
+PRECOMPILED_HEADER += stdafx.h
+
 # Installation path
 # target.path =
 
