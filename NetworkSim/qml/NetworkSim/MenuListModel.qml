@@ -2,26 +2,24 @@ import QtQuick 2.0
 
 ListModel {
     ListElement {
-        name: "Flooding Algorithm"
-    }
+        name: "Flooding Algorithm
+
+" }
 
     ListElement {
-        name: "Link-State Routing Algorithm"
-    }
+        name: "Link-State Routing
+Algorithm
+
+" }
 
     ListElement {
-        name: "Open Shortest Path First Algorithm"
-    }
+        name: "Distance-Vector Routing
+Algorithm
+
+" }
 
     ListElement {
-        name: "Distance-Vector Routing Algorithm"
-    }
+        name: "CBT Algorithm
 
-    ListElement {
-        name: "PIM Algorithm"
-    }
-
-    ListElement {
-        name: "CBT Algorithm"
-    }
+" }
 }
