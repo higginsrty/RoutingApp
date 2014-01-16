@@ -23,10 +23,6 @@ Item {
             x: -width * 0.9
             y: action_bar.height
             height: parent.height - action_bar.height
-            Rectangle {
-                anchors.fill: parent
-                color: "blue"
-            }
         }
 
         RoutingTable {
@@ -34,7 +30,7 @@ Item {
             visible: false
         }
 
-        Node {
+        /*Node {
             id: node_1
 
             Packet {
@@ -42,6 +38,6 @@ Item {
                 x: 57
                 y: 109
             }
-        }
+        }*/
     }
 }

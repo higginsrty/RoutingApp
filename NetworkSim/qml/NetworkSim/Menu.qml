@@ -4,6 +4,15 @@ Item {
     width: parent.width / 3
     height: parent.height
 
+    Rectangle {
+        anchors.fill: parent
+        color: "blue"
+    }
+
+    MenuListView {
+        id: list_view
+    }
+
     MouseArea {
         id: ma_menu
         anchors.fill: parent
