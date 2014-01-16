@@ -15,8 +15,8 @@ Item{
     Rectangle{
 
         id:area
-        x: link.x1+1
-        y: link.y1-4
+        x: link.x1
+        y: link.y1
         property alias x1: link.x1
         property alias y1: link.y1
 
@@ -25,8 +25,9 @@ Item{
 
         color: "blue"
         opacity: 1
-        height: 8
-        smooth: true;
+        height: 20
+        smooth: true
+        antialiasing: true
 
         transformOrigin: Item.TopLeft;
 
@@ -90,7 +91,7 @@ Item{
             ctx.moveTo(x1,y1)
             ctx.lineTo(x2,y2)
 
-            ctx.lineWidth = 4
+            ctx.lineWidth = 20
             ctx.stroke()
 
         }

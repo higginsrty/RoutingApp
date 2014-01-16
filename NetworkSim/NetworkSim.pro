@@ -7,7 +7,10 @@ DEPLOYMENTFOLDERS = folder_01
 QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    model.cpp \
+    node.cpp \
+    packet.cpp
 
 # Installation path
 # target.path =
@@ -26,3 +29,9 @@ OTHER_FILES += \
     qml/NetworkSim/Nodes.qml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+HEADERS += \
+    model.h \
+    node.h \
+    packet.h \
+    stdafx.h

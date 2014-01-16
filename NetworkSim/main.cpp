@@ -1,6 +1,4 @@
-#include <QtGui/QGuiApplication>
-#include "qtquick2applicationviewer.h"
-#include <QScreen>
+#include "stdafx.h"
 
 int main(int argc, char *argv[])
 {
