@@ -18,4 +18,7 @@ qtcAddDeployment()
 
 OTHER_FILES += \
     qml/NetworkSim/Menu.qml \
-    qml/NetworkSim/ActionBar.qml
+    qml/NetworkSim/ActionBar.qml \
+    android/AndroidManifest.xml
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
