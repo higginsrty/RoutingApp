@@ -1,16 +1,14 @@
 import QtQuick 2.0
 
-Rectangle {
-    width: 360
-    height: 360
-    Text {
-        text: qsTr("Hello World")
-        anchors.centerIn: parent
-    }
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
+Item {
+    objectName: "root"
+    width: 400
+    height: 400
+
+    Item {
+        objectName: "MainPanel"
+        width: parent.width
+        height: parent.height
+        // This is where all other items will be added, such as the menu, nodes, links...etc.
     }
 }
