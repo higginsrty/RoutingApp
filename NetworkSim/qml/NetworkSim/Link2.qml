@@ -15,8 +15,6 @@ Item{
     Rectangle{
 
         id:area
-        x: link.x1
-        y: link.y1
         property alias x1: link.x1
         property alias y1: link.y1
 
@@ -25,14 +23,16 @@ Item{
 
         color: "blue"
         opacity: 1
-        height: 20
+        height: 30
         smooth: true
         antialiasing: true
+        // IMPORTANT SECTION!! FIXED ALL ISSUES, NO MATH!
+        x: parent.x1
+        y: parent.y1 - height/2
+        transformOrigin: Item.Left // Changed this to just Left,not TopLeft, Works great
 
-        transformOrigin: Item.TopLeft;
-
-        width: getWidth(x1,y1,x2,y2);
-        rotation: getSlope(x1,y1,x2,y2);
+        width: getWidth(x1,y1,x2,y2)
+        rotation: getSlope(x1,y1,x2,y2)
 
         function getWidth(sx1,sy1,sx2,sy2)
         {
@@ -43,6 +43,7 @@ Item{
 
         function getSlope(sx1,sy1,sx2,sy2)
         {
+            console.log(sy2);
             var a,m,d;
             var b=sx2-sx1;
             if (b===0)
@@ -50,7 +51,7 @@ Item{
             a=sy2-sy1;
             m=a/b;
             d=Math.atan(m)*180/Math.PI;
-
+            console.log(d);
             if (a<0 && b<0)
                 return d+180;
             else if (a>=0 && b>=0)
@@ -81,6 +82,7 @@ Item{
         width: parent.width
         height: parent.height
         anchors.centerIn: parent
+        opacity: 1.0
 
         onPaint: {
             var ctx = canvas.getContext('2d')
@@ -91,7 +93,7 @@ Item{
             ctx.moveTo(x1,y1)
             ctx.lineTo(x2,y2)
 
-            ctx.lineWidth = 20
+            ctx.lineWidth = 30
             ctx.stroke()
 
         }

@@ -49,7 +49,7 @@ Item {
             x1: 300
             y1: 100
             x2: 100
-            y2:  40
+            y2: 40
         }
 
         RoutingTable {
