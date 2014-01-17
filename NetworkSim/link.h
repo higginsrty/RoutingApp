@@ -7,6 +7,7 @@ public:
     link();
     int parentNodeID;
     int childNodeID;
+    int length;
     bool parentEnabled();
     bool childEnabled();
 
