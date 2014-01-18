@@ -1,16 +1,12 @@
 import QtQuick 2.0
 
 Item{
-
     id: link
-    property real x1: parent.x1
-    property real y1: parent.y1
+    property real x1: x1
+    property real y1: y1
 
-    property real x2: parent.x2
-    property real y2: parent.y2
-
-    width: parent.width;
-    height: parent.height
+    property real x2: x2
+    property real y2: y2
 
     Rectangle{
 
@@ -21,15 +17,14 @@ Item{
         property real x2: link.x2
         property real y2: link.y2
 
-        color: "blue"
+        color: "black"
         opacity: 1
         height: 30
         smooth: true
         antialiasing: true
-        // IMPORTANT SECTION!! FIXED ALL ISSUES, NO MATH!
         x: parent.x1
         y: parent.y1 - height/2
-        transformOrigin: Item.Left // Changed this to just Left,not TopLeft, Works great
+        transformOrigin: Item.Left
 
         width: getWidth(x1,y1,x2,y2)
         rotation: getSlope(x1,y1,x2,y2)
@@ -74,31 +69,6 @@ Item{
             }
 
         }
-
-    }
-
-    Canvas{
-        id: canvas
-        width: parent.width
-        height: parent.height
-        anchors.centerIn: parent
-        opacity: 1.0
-
-        onPaint: {
-            var ctx = canvas.getContext('2d')
-
-            ctx.beginPath()
-
-
-            ctx.moveTo(x1,y1)
-            ctx.lineTo(x2,y2)
-
-            ctx.lineWidth = 30
-            ctx.stroke()
-
-        }
-
-
 
     }
 

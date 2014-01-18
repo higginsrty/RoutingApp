@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 Item {
+
    width: 100
    height: 100
 
@@ -14,6 +15,7 @@ Item {
        MouseArea {
            anchors.fill: parent
            onClicked: (myNode.state == "enabledNode") ? myNode.state = "disabledNode" : myNode.state = "enabledNode"
+           drag.target: parent
        }
 
        states: [

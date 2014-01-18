@@ -2,8 +2,8 @@ import QtQuick 2.0
 
 Item {
     objectName: "root"
-    width: 400
-    height: 400
+    width: 800
+    height: 600
 
     Item {
         objectName: "MainPanel"
@@ -28,21 +28,13 @@ Item {
         Nodes {
             id: myNode
 
-            x: 103
-            y: 118
+            x: 200
+            y: 300
 
             Packet {
                 id: packet_1
             }
 
-            MouseArea {
-                anchors.fill: parent;
-
-                onClicked: {
-                   (route_table.visible == true) ? route_table.visible = false : route_table.visible = true
-                    console.log("clicked")
-                }
-            }
         }
 
         Link2 {
@@ -52,8 +44,5 @@ Item {
             y2: 40
         }
 
-        RoutingTable {
-            id: route_table
-        }
     }
 }
