@@ -1,12 +1,16 @@
 import QtQuick 2.0
 
 Item {
+    id: node
 
    width: 100
    height: 100
 
+   signal position_changed_sig(real X, real Y)
+
    Rectangle {
-       id: myNode
+       id: rect_node
+       anchors.fill: node
        width: parent.width
        height: parent.height
        radius: width*.5
@@ -14,22 +18,26 @@ Item {
        color: "green"
        MouseArea {
            anchors.fill: parent
-           onClicked: (myNode.state == "enabledNode") ? myNode.state = "disabledNode" : myNode.state = "enabledNode"
-           drag.target: parent
+           onClicked: (rect_node.state == "enabledNode") ? rect_node.state = "disabledNode" : rect_node.state = "enabledNode"
+           drag.target: node
+           onPositionChanged: {
+               if (drag.active === true)
+                   node.position_changed_sig(node.x,node.y)
+           }
        }
 
        states: [
            State {
               name: "disabledNode"
               PropertyChanges {
-                  target: myNode
+                  target: rect_node
                   color: "red"
               }
           }, //end of State
           State {
               name: "enabledNode"
               PropertyChanges {
-                  target: myNode
+                  target: rect_node
                   color: "green"
               }
           }

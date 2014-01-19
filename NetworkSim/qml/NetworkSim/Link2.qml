@@ -32,13 +32,11 @@ Item{
         function getWidth(sx1,sy1,sx2,sy2)
         {
             var w=Math.sqrt(Math.pow((sx2-sx1),2)+Math.pow((sy2-sy1),2));
-            console.debug("W: "+w);
             return w;
         }
 
         function getSlope(sx1,sy1,sx2,sy2)
         {
-            console.log(sy2);
             var a,m,d;
             var b=sx2-sx1;
             if (b===0)
@@ -46,7 +44,6 @@ Item{
             a=sy2-sy1;
             m=a/b;
             d=Math.atan(m)*180/Math.PI;
-            console.log(d);
             if (a<0 && b<0)
                 return d+180;
             else if (a>=0 && b>=0)

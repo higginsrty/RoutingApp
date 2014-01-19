@@ -10,7 +10,8 @@ QML_IMPORT_PATH =
 SOURCES += main.cpp \
     model.cpp \
     node.cpp \
-    packet.cpp
+    packet.cpp \
+    link.cpp
 
 PRECOMPILED_HEADER += stdafx.h
 
@@ -36,4 +37,5 @@ HEADERS += \
     model.h \
     node.h \
     packet.h \
+    link.h \
     stdafx.h

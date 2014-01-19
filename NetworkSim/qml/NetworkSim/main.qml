@@ -25,24 +25,5 @@ Item {
             height: parent.height - action_bar.height
         }
 
-        Nodes {
-            id: myNode
-
-            x: 200
-            y: 300
-
-            Packet {
-                id: packet_1
-            }
-
-        }
-
-        Link2 {
-            x1: 300
-            y1: 100
-            x2: 100
-            y2: 40
-        }
-
     }
 }
