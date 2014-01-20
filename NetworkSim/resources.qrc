@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/qml_files">
+        <file alias="a_packet.qml">qml/NetworkSim/AcknowlPacket.qml</file>
+        <file alias="action_bar.qml">qml/NetworkSim/ActionBar.qml</file>
+        <file alias="link.qml">qml/NetworkSim/Link2.qml</file>
+        <file alias="main.qml">qml/NetworkSim/main.qml</file>
+        <file alias="menu.qml">qml/NetworkSim/Menu.qml</file>
+        <file>qml/NetworkSim/MenuListModel.qml</file>
+        <file>qml/NetworkSim/MenuListView.qml</file>
+        <file alias="node.qml">qml/NetworkSim/Nodes.qml</file>
+        <file alias="packet.qml">qml/NetworkSim/Packet.qml</file>
+        <file alias="ph_menu.qml">qml/NetworkSim/PressHoldNodeMenu.qml</file>
+        <file alias="routing_table.qml">qml/NetworkSim/RoutingTable.qml</file>
+    </qresource>
+</RCC>

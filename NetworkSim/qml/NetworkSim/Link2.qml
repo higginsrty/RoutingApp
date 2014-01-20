@@ -8,6 +8,8 @@ Item{
     property real x2: x2
     property real y2: y2
 
+    z:-1
+
     Rectangle{
 
         id:area

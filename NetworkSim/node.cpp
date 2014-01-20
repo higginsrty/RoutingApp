@@ -7,7 +7,7 @@ Node::Node(QQuickItem *parent) :
 
 void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlEngine *engine) {
     // Load Node QML file
-    QQmlComponent component(engine, "qml/NetworkSim/Nodes.qml");
+    QQmlComponent component(engine,QUrl("qrc:/qml_files/node.qml"));
     // Create QObject
     QObject *object = component.create();
     // Cast it as a QQuickItem

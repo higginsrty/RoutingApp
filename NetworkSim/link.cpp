@@ -7,7 +7,7 @@ Link::Link(QQuickItem *parent) :
 
 void Link::addLink(QString name, Node *node1, Node *node2, QObject *panel, QQmlEngine *engine) {
     // Loading the Link QML file
-    QQmlComponent component(engine, "qml/NetworkSim/Link2.qml");
+    QQmlComponent component(engine,QUrl("qrc:/qml_files/link.qml"));
     // Creating the QObject to work with
     QObject *object = component.create();
     this->node1 = node1;

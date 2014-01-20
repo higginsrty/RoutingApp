@@ -4,6 +4,8 @@ Item {
     width: 50
     height: 50
     anchors.centerIn: parent
+    z:5
+
     Rectangle {
         color: "lightblue"
         anchors.fill: parent

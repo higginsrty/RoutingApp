@@ -6,6 +6,8 @@ Item {
    width: 100
    height: 100
 
+   z: 10
+
    signal position_changed_sig(real X, real Y)
 
    Rectangle {
