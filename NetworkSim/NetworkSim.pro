@@ -10,25 +10,22 @@ QML_IMPORT_PATH =
 SOURCES += main.cpp \
     model.cpp \
     node.cpp \
-    packet.cpp
+    packet.cpp \
+    link.cpp
 
 PRECOMPILED_HEADER += stdafx.h
 
 # Installation path
 # target.path =
 
-# Please do not modify the following two lines. Required for deployment.
-include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
-qtcAddDeployment()
-
 OTHER_FILES += \
     qml/NetworkSim/Menu.qml \
     qml/NetworkSim/ActionBar.qml \
-    android/AndroidManifest.xml \
     qml/NetworkSim/Packet.qml \
     qml/NetworkSim/RoutingTable.qml \
     qml/NetworkSim/PressHoldNodeMenu.qml \
-    qml/NetworkSim/Nodes.qml
+    qml/NetworkSim/Nodes.qml \
+    android/AndroidManifest.xml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -36,4 +33,13 @@ HEADERS += \
     model.h \
     node.h \
     packet.h \
+    link.h \
     stdafx.h
+
+# Please do not modify the following two lines. Required for deployment.
+include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
+qtcAddDeployment()
+
+RESOURCES += \
+    resources.qrc
+

@@ -1,16 +1,14 @@
 import QtQuick 2.0
 
 Item{
-
     id: link
-    property real x1: parent.x1
-    property real y1: parent.y1
+    property real x1: x1
+    property real y1: y1
 
-    property real x2: parent.x2
-    property real y2: parent.y2
+    property real x2: x2
+    property real y2: y2
 
-    width: parent.width;
-    height: parent.height
+    z:-1
 
     Rectangle{
 
@@ -21,15 +19,14 @@ Item{
         property real x2: link.x2
         property real y2: link.y2
 
-        color: "blue"
+        color: "black"
         opacity: 1
         height: 30
         smooth: true
         antialiasing: true
-        // IMPORTANT SECTION!! FIXED ALL ISSUES, NO MATH!
         x: parent.x1
         y: parent.y1 - height/2
-        transformOrigin: Item.Left // Changed this to just Left,not TopLeft, Works great
+        transformOrigin: Item.Left
 
         width: getWidth(x1,y1,x2,y2)
         rotation: getSlope(x1,y1,x2,y2)
@@ -37,13 +34,11 @@ Item{
         function getWidth(sx1,sy1,sx2,sy2)
         {
             var w=Math.sqrt(Math.pow((sx2-sx1),2)+Math.pow((sy2-sy1),2));
-            console.debug("W: "+w);
             return w;
         }
 
         function getSlope(sx1,sy1,sx2,sy2)
         {
-            console.log(sy2);
             var a,m,d;
             var b=sx2-sx1;
             if (b===0)
@@ -51,7 +46,6 @@ Item{
             a=sy2-sy1;
             m=a/b;
             d=Math.atan(m)*180/Math.PI;
-            console.log(d);
             if (a<0 && b<0)
                 return d+180;
             else if (a>=0 && b>=0)
@@ -74,31 +68,6 @@ Item{
             }
 
         }
-
-    }
-
-    Canvas{
-        id: canvas
-        width: parent.width
-        height: parent.height
-        anchors.centerIn: parent
-        opacity: 1.0
-
-        onPaint: {
-            var ctx = canvas.getContext('2d')
-
-            ctx.beginPath()
-
-
-            ctx.moveTo(x1,y1)
-            ctx.lineTo(x2,y2)
-
-            ctx.lineWidth = 30
-            ctx.stroke()
-
-        }
-
-
 
     }
 

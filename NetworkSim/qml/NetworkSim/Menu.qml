@@ -4,6 +4,8 @@ Item {
     width: parent.width / 3
     height: parent.height
 
+    z:50
+
     Rectangle {
         anchors.fill: parent
         color: "blue"
