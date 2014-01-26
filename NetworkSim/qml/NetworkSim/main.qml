@@ -13,6 +13,7 @@ Item {
 
         ActionBar {
             id: action_bar
+            objectName: "action_bar"
             Rectangle {
                 anchors.fill: parent
                 color: "red"
@@ -20,6 +21,7 @@ Item {
         }
 
         Menu {
+            objectName: ""
             x: -width * 0.9
             y: action_bar.height
             height: parent.height - action_bar.height

@@ -3,17 +3,28 @@
 
 #include "stdafx.h"
 
-class model
+class Model : public QQuickItem
 {
+    Q_OBJECT
 public:
-    model();
+    explicit Model(QQuickItem *parent = 0);
     bool change_algorithm(std::string alg);
     int get_algorithm();
-    int start_sim();
-    int pause_sim();
-    int resume_sim();
-    int step_sim();
-    int reset_sim();
+    int set_main_panel(QObject *main_panel);
+    int set_graph(Graph *g);
+
+private:
+    QObject *main_panel;
+    Graph *graph;
+
+signals:
+
+public slots:
+    void start_sim();
+    void pause_sim();
+    void resume_sim();
+    void step_sim();
+    void reset_sim();
 };
 
 #endif // MODEL_H

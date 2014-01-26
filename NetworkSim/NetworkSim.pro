@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     model.cpp \
     node.cpp \
     packet.cpp \
-    link.cpp
+    link.cpp \
+    graph.cpp
 
 PRECOMPILED_HEADER += stdafx.h
 
@@ -34,7 +35,8 @@ HEADERS += \
     node.h \
     packet.h \
     link.h \
-    stdafx.h
+    stdafx.h \
+    graph.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)

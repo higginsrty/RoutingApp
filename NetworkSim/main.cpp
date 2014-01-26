@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+void connect_model_actionbar(QObject *action_bar, Model *model);
+void connect_model_menu(QObject *menu, Model *model);
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -8,17 +11,47 @@ int main(int argc, char *argv[])
     viewer.setMainQmlFile(QStringLiteral("qml/NetworkSim/main.qml"));
     QObject *root = viewer.rootObject();
     main_panel = root->findChild<QObject*>("MainPanel");
+
+    // Connecting the GUI to the model
+    // Controller code
+    QObject *action_bar = main_panel->findChild<QObject*>("action_bar");
+    QObject *menu = main_panel->findChild<QObject*>("menu");
+    Model *model = new Model();
+
+    connect_model_actionbar(action_bar, model);
+    connect_model_menu(menu, model);
+
+    // Engine to draw the QML files
     QQmlEngine *engine = viewer.engine();
-    Node *node1 = new Node(qobject_cast<QQuickItem*>(main_panel));
-    node1->setup_node("node1", 100, 100, main_panel, engine);
-    Node *node2 = new Node(qobject_cast<QQuickItem*>(main_panel));
-    node2->setup_node("node2",200,200,main_panel,engine);
-    Node *node3 = new Node(qobject_cast<QQuickItem*>(main_panel));
-    node3->setup_node("node3",300,150,main_panel,engine);
-    node1->addLink("link1", node2, main_panel,engine);
-    node3->addLink("link2",node1,main_panel,engine);
-    node2->addLink("link3", node3, main_panel,engine);
+
+    // Main Graph object
+    Graph *main_graph = new Graph(main_panel, engine);
+
+    Node *n1 = main_graph->add_node("node1", 100, 100, 23);
+    Node *n2 = main_graph->add_node("node2", 200,200,40);
+    Node *n3 = main_graph->add_node("node3", 400,400, 20);
+
+    main_graph->add_link(n1, n2, 100);
+    main_graph->add_link(n2,n3,120);
+    main_graph->add_link(n3, n1, 200);
+   // node1->addLink("link1", 100, node2, main_panel,engine);
+   // node3->addLink("link2", 110, node1,main_panel,engine);
+   // node2->addLink("link3", 200, node3, main_panel,engine);
    // QObject *link1 = addLink("link1",node1, node2, engine, main_panel);
     viewer.showExpanded();
     return app.exec();
+}
+
+void connect_model_actionbar(QObject* action_bar, Model *model)
+{
+    QObject::connect(action_bar, SIGNAL(onStart()), model, SLOT(start_sim()));
+    QObject::connect(action_bar, SIGNAL(onPause()), model, SLOT(pause_sim()));
+    QObject::connect(action_bar, SIGNAL(onResume()), model, SLOT(resume_sim()));
+    QObject::connect(action_bar, SIGNAL(onReset()), model, SLOT(reset_sim()));
+    QObject::connect(action_bar, SIGNAL(onStep()), model, SLOT(step_sim()));
+}
+
+void connect_model_menu(QObject *menu, Model *model)
+{
+
 }

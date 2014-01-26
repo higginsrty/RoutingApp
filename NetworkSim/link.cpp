@@ -5,7 +5,7 @@ Link::Link(QQuickItem *parent) :
 {
 }
 
-void Link::addLink(QString name, Node *node1, Node *node2, QObject *panel, QQmlEngine *engine) {
+void Link::addLink(QString name, int weight, Node *node1, Node *node2, QObject *panel, QQmlEngine *engine) {
     // Loading the Link QML file
     QQmlComponent component(engine,QUrl("qrc:/qml_files/link.qml"));
     // Creating the QObject to work with
@@ -37,4 +37,12 @@ QObject* Link::get_q_object() {
 
 Node* Link::get_source() {
     return node1;
+}
+
+Node* Link::get_node2() {
+    return node2;
+}
+
+void Link::update_weight(int w) {
+    weight = w;
 }
