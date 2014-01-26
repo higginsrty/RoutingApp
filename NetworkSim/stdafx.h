@@ -9,6 +9,9 @@
 #include <QQuickItem>
 #include <QQmlContext>
 
+#include <vector>
+
+#include <graph.h>
 #include <link.h>
 #include <stdlib.h>
 #include <node.h>

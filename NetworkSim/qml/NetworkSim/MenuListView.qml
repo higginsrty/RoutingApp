@@ -5,11 +5,12 @@ Item {
     height: parent.height
 
     ListView {
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
 
         model: MenuListModel {}
         delegate: Text {
+            anchors.right: parent.right
+            wrapMode: Text.WordWrap
             text: name
         }
     }

@@ -20,12 +20,13 @@ Item{
         property real y2: link.y2
 
         color: "black"
-        opacity: 1
-        height: 30
+        height: 25
         smooth: true
         antialiasing: true
+
         x: parent.x1
         y: parent.y1 - height/2
+
         transformOrigin: Item.Left
 
         width: getWidth(x1,y1,x2,y2)
@@ -41,19 +42,25 @@ Item{
         {
             var a,m,d;
             var b=sx2-sx1;
-            if (b===0)
-                return 0;
             a=sy2-sy1;
+            if (b===0) {
+                if (a < 0)
+                    return -90;
+                if (a === 0)
+                    return 0;
+                if (a > 0)
+                    return 90;
+            }
             m=a/b;
             d=Math.atan(m)*180/Math.PI;
             if (a<0 && b<0)
-                return d+180;
+                return d + 180;
             else if (a>=0 && b>=0)
                 return d;
             else if (a<0 && b>=0)
                 return d;
             else if (a>=0 && b<0)
-                return d+180;
+                return d + 180;
             else
                 return 0;
         }
@@ -63,8 +70,10 @@ Item{
             anchors.fill: area
 
             onClicked: {
-                //(weight_menu.visible == true) ? weight_menu.visible = false : weight_menu.visible = true
-                console.log("Clicked")
+                console.log("x1: " + x1)
+                console.log("y1: " + y1)
+                console.log("x2: " + x2)
+                console.log("y2: " + y2)
             }
 
         }

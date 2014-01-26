@@ -1,16 +1,18 @@
 import QtQuick 2.0
 
 Item {
-    id: node
+   id: node
 
+   property string name
    width: 100
    height: 100
 
    z: 10
 
-   signal position_changed_sig(real X, real Y)
+   signal position_changed_sig(real X, real Y, string name)
 
    Rectangle {
+       property string name_id: parent.name
        id: rect_node
        anchors.fill: node
        width: parent.width
@@ -24,7 +26,7 @@ Item {
            drag.target: node
            onPositionChanged: {
                if (drag.active === true)
-                   node.position_changed_sig(node.x,node.y)
+                   node.position_changed_sig(node.x,node.y, parent.name_id)
            }
        }
 
