@@ -30,6 +30,8 @@ OTHER_FILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
+QT += widgets
+
 HEADERS += \
     model.h \
     node.h \

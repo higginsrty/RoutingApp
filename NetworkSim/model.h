@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 
+class Graph;
+
 class Model : public QQuickItem
 {
     Q_OBJECT

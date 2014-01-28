@@ -4,9 +4,11 @@ Item {
     objectName: "root"
     width: 800
     height: 600
+    id: root
 
     Item {
         objectName: "MainPanel"
+        id: main_panel
         width: parent.width
         height: parent.height
         // This is where all other items will be added, such as the menu, nodes, links...etc.

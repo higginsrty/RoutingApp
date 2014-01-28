@@ -34,10 +34,7 @@ int main(int argc, char *argv[])
     main_graph->add_link(n1, n2, 100);
     main_graph->add_link(n2,n3,120);
     main_graph->add_link(n3, n1, 200);
-   // node1->addLink("link1", 100, node2, main_panel,engine);
-   // node3->addLink("link2", 110, node1,main_panel,engine);
-   // node2->addLink("link3", 200, node3, main_panel,engine);
-   // QObject *link1 = addLink("link1",node1, node2, engine, main_panel);
+
     viewer.showExpanded();
     return app.exec();
 }

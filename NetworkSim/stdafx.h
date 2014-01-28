@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QQuickItem>
 #include <QQmlContext>
+#include <QMessageBox>
 
 #include <vector>
 

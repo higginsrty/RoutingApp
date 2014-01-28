@@ -18,6 +18,7 @@ Node* Graph::add_node(QString name, int x, int y, int id)
     node->setup_node(name, x, y, panel, engine);
     node->set_id(id);
     QObject::connect(node->get_q_object(),SIGNAL(position_changed_sig(qreal,qreal,QString)),this,SLOT(update_node_position(qreal,qreal,QString)));
+    QObject::connect(node->get_q_object(), SIGNAL(press_and_hold_node(QString)), this, SLOT(press_and_hold_node(QString)));
     node_pool.push_back(node);
     return node;
 }
@@ -126,7 +127,6 @@ Node* Graph::get_node_by_name(QString string)
         if (n1->get_name().compare(string) == 0)
             return n1;
     }
-    qDebug() << "no node found";
     return NULL;
 }
 
@@ -163,4 +163,22 @@ void Graph::update_node_position(qreal x, qreal y, QString string)
             tmp->setProperty("y2", y + y_off/2);
         }
     }
+}
+
+void Graph::press_and_hold_node(QString node_name)
+{
+    QQmlComponent component(engine, QUrl("qrc:/qml_files/NodeDialog.qml"));
+    QObject *object = component.create();
+    object->setParent(panel);
+    QQuickItem *item = qobject_cast<QQuickItem*>(object);
+    item->setParentItem(qobject_cast<QQuickItem*>(panel));
+    QObject::connect(object,SIGNAL(destroy_dialog(void)),this,SLOT(destroy_dialog(void)));
+    Node* node = get_node_by_name(node_name);
+}
+
+void Graph::destroy_dialog()
+{
+    QObject *dialog = panel->findChild<QObject*>("nodeDialog");
+    //QQuickItem *dialog_item = qobject_cast<QQuickItem*>(dialog);
+    dialog->deleteLater();
 }

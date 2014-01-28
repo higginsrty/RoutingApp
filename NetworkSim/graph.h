@@ -38,6 +38,8 @@ signals:
 
 public slots:
     void update_node_position(qreal x, qreal y, QString string);
+    void press_and_hold_node(QString node_name);
+    void destroy_dialog();
 };
 
 #endif // GRAPH_H

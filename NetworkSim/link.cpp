@@ -28,6 +28,7 @@ void Link::addLink(QString name, int weight, Node *node1, Node *node2, QObject *
     item->setProperty("x2", x2);
     item->setProperty("y2", y2);
     item->setObjectName(name);
+    this->weight = weight;
     this->link = object;
 }
 
