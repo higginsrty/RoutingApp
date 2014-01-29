@@ -5,15 +5,9 @@ FloodingRT::FloodingRT(QQuickItem *parent) :
 {
 }
 
-void Flood::floodNetwork(Node *node1, Packet *packet1)
+void FloodingRT::floodNetwork(Node *node1, Packet *packet1)
 {
-    while(sourceNodeAcknowlPacket =! true)
-    {
 
-
-
-
-    }
 }
 
 

@@ -10,7 +10,7 @@ Item {
     PropertyAnimation {
         target: dialogComponent
         property: "opacity"
-        duration: 1000
+        duration: 600
         from: 0
         to: 1
         easing.type: Easing.InOutQuad
@@ -31,8 +31,8 @@ Item {
     // This rectangle is the actual popup
     Rectangle {
         id: dialogWindow
-        width: 100
-        height: 62
+        width: 400
+        height: 200
         radius: 10
         anchors.centerIn: parent
 
