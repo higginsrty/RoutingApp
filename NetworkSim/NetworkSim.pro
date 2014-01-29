@@ -13,7 +13,7 @@ SOURCES += main.cpp \
     packet.cpp \
     link.cpp \
     graph.cpp \
-    floodingRT.cpp
+    floodingRT.cpp \
 
 PRECOMPILED_HEADER += stdafx.h
 
@@ -31,16 +31,13 @@ OTHER_FILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-QT += widgets
-
 HEADERS += \
     model.h \
     node.h \
     packet.h \
     link.h \
     stdafx.h \
-    graph.h \
-    floodingRT.h
+    graph.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
