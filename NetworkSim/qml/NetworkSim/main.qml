@@ -20,6 +20,7 @@ Item {
                 anchors.fill: parent
                 color: "red"
             }
+
         }
 
         Menu {
@@ -27,6 +28,8 @@ Item {
             x: -width * 0.9
             y: action_bar.height
             height: parent.height - action_bar.height
+
+
         }
 
     }

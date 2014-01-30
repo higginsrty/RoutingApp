@@ -11,19 +11,21 @@ Item {
     signal onResume()
     signal onReset()
     signal onStep()
-
+    //Start Button
     Rectangle {
         z:51
-        color: "red"
         id: start
         anchors.left: parent.left
 
         height: parent.height
         width: parent.width/5
 
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "Start"
+        Image{
+             anchors.centerIn: parent.horizontalCenter
+             source: "qrc:/images/start"
+             height: parent.height
+             width: parent.width
+
         }
 
         MouseArea {
@@ -33,19 +35,21 @@ Item {
             }
         }
     }
-
+    //Resume Button
     Rectangle {
         id: resume
-        color: "red"
         z:51
         anchors.left: start.right
 
         height: parent.height
         width: parent.width/5
 
-        Text {
+        Image {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "Resume"
+
+            source: "qrc:/images/resume"
+            width: parent.width
+            height: parent.height
         }
 
         MouseArea {
@@ -55,18 +59,19 @@ Item {
             }
         }
     }
-
+    //Pause Button
     Rectangle {
         id: pause
-        color: "red"
         z:51
         anchors.left: resume.right
         height: parent.height
         width: parent.width/5
 
-        Text {
+        Image {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "Pause"
+            source: "qrc:/images/pause"
+            height: parent.height
+            width: parent.width
         }
 
         MouseArea {
@@ -76,18 +81,19 @@ Item {
             }
         }
     }
-
+    //Step Button
     Rectangle {
         id: step
-        color: "red"
         anchors.left: pause.right
         z:51
         height: parent.height
         width: parent.width/5
 
-        Text {
+        Image {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "Step"
+            source: "qrc:/images/pause"
+            width: parent.width
+            height: parent.height
         }
 
         MouseArea {
@@ -97,18 +103,19 @@ Item {
             }
         }
     }
-
+    //Reset Button
     Rectangle {
         id: reset
-        color: "red"
         anchors.right: parent.right
         z:51
         height: parent.height
         width: parent.width/5
 
-        Text {
+        Image {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "Reset"
+            source: "qrc:/images/reset"
+            height: parent.height
+            width: parent.width
         }
 
         MouseArea {

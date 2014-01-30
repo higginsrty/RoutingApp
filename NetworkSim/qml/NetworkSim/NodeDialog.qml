@@ -36,10 +36,11 @@ Item {
         radius: 10
         anchors.centerIn: parent
 
-        Text {
+        /*Text {
             anchors.centerIn: parent
             text: "This is the popup"
-        }
+        }*/
+
 
         MouseArea{
             anchors.fill: parent
@@ -61,5 +62,43 @@ Item {
                 fade_out.start()
             }
         }
+    }
+
+    Rectangle {
+        id:button
+        property color button_color: "grey"
+        property color hover_color: "lightgrey"
+        property color border_color: "black"
+        anchors.centerIn: parent
+        width: 50
+        height: 25
+        radius: width*.1
+        color: button_color
+        Text{
+            anchors.centerIn: parent
+            text: "Test"
+        }
+
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: parent.color = parent.hover_color
+            onExited: parent.color = parent.button_color
+            //When Mouse is pressed down
+            onPressed: {
+                parent.color = parent.button_color
+                console.log("Button Pressed")
+            }
+            //When Mouse is Realeased
+            onClicked:{
+                parent.color = parent.hover_color
+                console.log("Button Released")
+
+            }
+
+
+        }
+
     }
 }

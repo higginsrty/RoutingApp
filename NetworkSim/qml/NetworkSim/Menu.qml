@@ -6,14 +6,31 @@ Item {
     id: menu
     z:50
 
-    Rectangle {
+    Image {
         anchors.fill: parent
-        color: "blue"
+        source: "/home/jarad/Desktop/Menu Bar Buttons/Side Menu2.png"
     }
 
-    MenuListView {
+   /* MenuListView {
         id: list_view
         anchors.fill: parent
+    }*/
+
+    Rectangle {
+        id: add_node
+        x: parent.width*.7
+        y: 14
+        width: parent.width/5
+        height: parent.height/10
+        radius: width*.5
+        color: "black"
+
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                console.log("Added a Node")
+            }
+        }
     }
 
     MouseArea {
