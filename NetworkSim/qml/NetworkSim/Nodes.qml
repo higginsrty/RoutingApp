@@ -11,6 +11,7 @@ Item {
 
    signal position_changed_sig(real X, real Y, string name)
    signal press_and_hold_node(string name)
+   signal show_routing_table(string name)
 
    Rectangle {
        property string name_id: parent.name
@@ -23,7 +24,9 @@ Item {
        color: "green"
        MouseArea {
            anchors.fill: parent
-           onClicked: (rect_node.state == "enabledNode") ? rect_node.state = "disabledNode" : rect_node.state = "enabledNode"
+           onClicked: {
+               show_routing_table(parent.name_id)
+           }
            drag.target: node
            onPositionChanged: {
                if (drag.active === true)

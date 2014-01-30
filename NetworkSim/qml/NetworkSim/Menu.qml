@@ -1,37 +1,20 @@
 import QtQuick 2.0
 
 Item {
-    width: parent.width / 3
+    width: parent.width / 2
     height: parent.height
     id: menu
     z:50
 
     Image {
         anchors.fill: parent
-        source: "/home/jarad/Desktop/Menu Bar Buttons/Side Menu2.png"
+        source: "qrc:/images/side_menu"
     }
 
    /* MenuListView {
         id: list_view
         anchors.fill: parent
     }*/
-
-    Rectangle {
-        id: add_node
-        x: parent.width*.7
-        y: 14
-        width: parent.width/5
-        height: parent.height/10
-        radius: width*.5
-        color: "black"
-
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                console.log("Added a Node")
-            }
-        }
-    }
 
     MouseArea {
         id: ma_menu
@@ -62,6 +45,34 @@ Item {
             property: "x"
             to: menu.width * -0.9
             easing.type: Easing.InOutQuad
+        }
+
+        Rectangle {
+            id: add_node_rect
+            anchors.top:parent.top
+            anchors.left:  parent.left
+            anchors.right: parent.right
+            height: parent.height/7
+            opacity: 0
+        }
+
+        Rectangle {
+            id: add_node
+            anchors.verticalCenter: add_node_rect.verticalCenter
+            x: parent.width*.7
+            width: parent.width /7
+            height: width
+            radius: width*.5
+            color:"black"
+        }
+
+        MouseArea{
+            anchors.fill: add_node
+            x: add_node.x
+            y: add_node.y
+            onPressAndHold: {
+                console.log("Added a Node")
+            }
         }
 
     }

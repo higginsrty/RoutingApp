@@ -40,6 +40,7 @@ public slots:
     void update_node_position(qreal x, qreal y, QString string);
     void press_and_hold_node(QString node_name);
     void destroy_dialog();
+    void show_routing_table(QString node_name);
 };
 
 #endif // GRAPH_H

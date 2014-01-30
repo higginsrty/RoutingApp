@@ -24,6 +24,7 @@ private:
     QString name;
     bool source;
     QObject* node;
+    //RoutingTable *rt;
 
 signals:
 

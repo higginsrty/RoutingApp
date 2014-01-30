@@ -13,7 +13,7 @@ SOURCES += main.cpp \
     packet.cpp \
     link.cpp \
     graph.cpp \
-    floodingRT.cpp \
+    floodingRT.cpp
 
 PRECOMPILED_HEADER += stdafx.h
 
@@ -37,7 +37,8 @@ HEADERS += \
     packet.h \
     link.h \
     stdafx.h \
-    graph.h
+    graph.h \
+    floodingRT.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)

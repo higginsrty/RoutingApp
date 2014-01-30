@@ -11,7 +11,7 @@
         <file alias="packet.qml">qml/NetworkSim/Packet.qml</file>
         <file alias="ph_menu.qml">qml/NetworkSim/PressHoldNodeMenu.qml</file>
         <file alias="routing_table.qml">qml/NetworkSim/RoutingTable.qml</file>
-        <file alias="NodeDialog.qml">qml/NetworkSim/NodeDialog.qml</file>
+        <file alias="node_dialog.qml">qml/NetworkSim/NodeDialog.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="step">Images/Step.png</file>

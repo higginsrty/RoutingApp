@@ -6,37 +6,7 @@ import QtQuick 2.0
 
 ListModel {
 
-    ListElement {
-        //Source Node
-        //Doesn't Change
-        eHeader: "Source"
-        e1: "A"
-        e2: "A"
-        e3: "A"
-    }
+    id: flooding_routing_table_model
 
-    ListElement {
-        //Destination Nodes
-        eHeader: "Destination"
-        e1: "B"
-        e2: "C"
-        e3: "D"
-    }
-
-    ListElement {
-        //Weight
-        eHeader: "Weight"
-        e1: "4"
-        e2: "3"
-        e3: "8"
-    }
-
-    ListElement {
-        //Gateway
-        eHeader: "Gateway"
-        e1: " "
-        e2: " "
-        e3: "C"
-    }
 
 }//end of ListModel

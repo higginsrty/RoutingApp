@@ -19,6 +19,7 @@ Node* Graph::add_node(QString name, int x, int y, int id)
     node->set_id(id);
     QObject::connect(node->get_q_object(),SIGNAL(position_changed_sig(qreal,qreal,QString)),this,SLOT(update_node_position(qreal,qreal,QString)));
     QObject::connect(node->get_q_object(), SIGNAL(press_and_hold_node(QString)), this, SLOT(press_and_hold_node(QString)));
+    QObject::connect(node->get_q_object(), SIGNAL(show_routing_table(QString)), this, SLOT(show_routing_table(QString)));
     node_pool.push_back(node);
     return node;
 }
@@ -167,7 +168,7 @@ void Graph::update_node_position(qreal x, qreal y, QString string)
 
 void Graph::press_and_hold_node(QString node_name)
 {
-    QQmlComponent component(engine, QUrl("qrc:/qml_files/NodeDialog.qml"));
+    QQmlComponent component(engine, QUrl("qrc:/qml_files/node_dialog.qml"));
     QObject *object = component.create();
     object->setParent(panel);
     QQuickItem *item = qobject_cast<QQuickItem*>(object);
@@ -181,4 +182,9 @@ void Graph::destroy_dialog()
     QObject *dialog = panel->findChild<QObject*>("nodeDialog");
     //QQuickItem *dialog_item = qobject_cast<QQuickItem*>(dialog);
     dialog->deleteLater();
+}
+
+void Graph::show_routing_table(QString node_name)
+{
+    qDebug() << "building routing table";
 }
