@@ -19,12 +19,12 @@ public:
     //void addLink(QString name, int weight, Node* node2, QObject* main_panel, QQmlEngine* engine);
     QObject* get_q_object();
     void set_id(int id);
+    int node_weight = 0;
 private:
     int node_id;
     QString name;
     bool source;
     QObject* node;
-    //RoutingTable *rt;
 
 signals:
 
