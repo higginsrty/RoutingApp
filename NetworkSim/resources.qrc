@@ -19,5 +19,6 @@
         <file alias="pause">Images/Pause.png</file>
         <file alias="start">Images/Start.png</file>
         <file alias="resume">Images/Resume.png</file>
+        <file alias="side_menu">Images/Side Menu.png</file>
     </qresource>
 </RCC>
