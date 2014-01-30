@@ -1,8 +1,11 @@
 import QtQuick 2.0
 
 Item {
+    signal add_link(string name)
+
     width: 100
     height: 100
+
     Rectangle {
         anchors.fill: parent
         ListModel {
@@ -11,13 +14,9 @@ Item {
                 name: "Add Link"
                 MouseArea {
                     anchors.fill: parent
-                }
-            }
-
-            ListElement {
-                name: "Delete Link"
-                MouseArea {
-
+                    onClicked: {
+                        add_link()
+                    }
                 }
             }
 

@@ -4,15 +4,18 @@ Item {
     objectName: "root"
     width: 800
     height: 600
+    id: root
 
     Item {
         objectName: "MainPanel"
+        id: main_panel
         width: parent.width
         height: parent.height
         // This is where all other items will be added, such as the menu, nodes, links...etc.
 
         ActionBar {
             id: action_bar
+            objectName: "action_bar"
             Rectangle {
                 anchors.fill: parent
                 color: "red"
@@ -20,6 +23,7 @@ Item {
         }
 
         Menu {
+            objectName: ""
             x: -width * 0.9
             y: action_bar.height
             height: parent.height - action_bar.height
