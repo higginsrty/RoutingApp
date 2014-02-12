@@ -22,27 +22,65 @@ void algorithm_interface::get_destination_nodes(Node *source_node)
     delete iter1;
 }//end of get_destionation_nodes
 
+int minimum_distance(int distance[], bool shortest_path_set[])
+{
+    //set the minimum value
+    int min = INT_MAX, min_index;
+
+    for (int v = 0; v < number_of_nodes; v++)
+    {
+        if(shortest_path_set[v] == false && distance[v] <= min)
+        {
+            min = distance[v], min_index = v;
+        }//end of if statement
+    }//end of for loop
+
+    return min_index;
+
+}//end of minimum_distance
+
+
 void algorithm_interface::dijkstra_algorithm(Node *source_node)
 {//used to calculated the shortest path from source node to each destination node
 
-    this->source_node = source_node;
-    //create the origin used in Dijkstra's Algorithm
-    Node origin_node = source_node;
-    //vector containing all unvisited nodes
-    std::vector<Node*> unvisited_node_pool;
+    //output array will hold the shortest distance from source_node to nodes
+    int distance[number_of_nodes];
 
-    //Step 1)
-    //fill unvisited node vector with destination nodes
-    //origin_node weight value is preset to 0
-    //set all other nodes to infinity
+    //set to true if the vertex is included in the shortest path
+    bool shortest_path_set[number_of_nodes];
 
-    std::vector<Node*>::iterator iter2;
-    for (iter2 = destination_node_pool.begin(); iter2 != destination_node_pool.end(); iter2++ )
+    //pre-set all disstances to INT_MAX and shortestPathSet to false
+    for (int i = 0; i < number_of_nodes; i++)
     {
-        Node *current_node = *iter2;
-        current_node->node_weight = INT_MAX;
-        unvisited_node_pool.push_back(current_node);
-    }
+        distance[i] = INT_MAX;
+        shortest_path_set[i] = false;
+    }//end of for loop
 
+    //set distance of source node to 0
+    distance[source_node] = 0;
+
+    //find the shortest path for all nodes
+    for (int count = 0; count < number_of_nodes-1; count++)
+    {
+        //pick the minimum distance from the set of nodes not yet processed
+        int u = minimum_distance(distance,shortest_path_set);
+
+        //mark node as processed
+        shortest_path_set[u] = true;
+
+        //update the distance value of the same vertices of hte picked node
+        for(int v = 0; v < number_of_nodes; v++)
+        {
+            //only update if it is not in shortest_path_set
+            if(!shortest_path_set[number_of_nodes] && graph[u][v] && distance[u] != INT_MAX && distance[u]+graph[u][v] < distance[v])
+            {
+                distance[v] = distance[u] + graph[u][v];
+
+            }//end of if statement
+        }//end of for loop
+
+
+    }//end of for loop
 
 }//end of dijkstra's algorithm
+
