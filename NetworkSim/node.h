@@ -3,7 +3,9 @@
 
 #include "stdafx.h"
 
+class FloodingRT;
 class Link;
+
 class Packet;
 
 struct Neighbor{
@@ -12,6 +14,7 @@ struct Neighbor{
     Neighbor(){neighbor_ID = 0; link_delay = 0;}
     Neighbor(int ID, double delay){neighbor_ID = ID; link_delay = delay;}
 };
+
 
 
 
@@ -25,11 +28,11 @@ public:
     bool is_source();
     QString get_name();
     void set_source(bool new_source);
-    void setup_node(QString name, int x, int y, QObject* main_panel, QQmlEngine* engine);
+    void setup_node(QString name, int x, int y, QObject* main_panel, QQmlApplicationEngine *engine);
     //void addLink(QString name, int weight, Node* node2, QObject* main_panel, QQmlEngine* engine);
     QObject* get_q_object();
     void set_id(int id);
-    int node_weight = 0;
+    void show_routing_table(QQmlApplicationEngine *engine, QQuickItem *panel);
 
     //added 2/4/14
     std::vector<int> get_neighbor_vector();
@@ -45,16 +48,15 @@ public:
 
     int process_packet(Packet packet);
 
-
-
 private:
     int node_id;
     QString name;
     bool source;
     QObject* node;
-
+    FloodingRT *rt;
     bool process_dv_packet(Packet packet);
     void send_update_packets(double weight);
+
 
 signals:
 

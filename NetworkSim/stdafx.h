@@ -3,11 +3,14 @@
 
 #include <QtGlobal>
 #include <QtGui/QGuiApplication>
-#include "qtquick2applicationviewer.h"
+#include "qtquick2controlsapplicationviewer.h"
 #include <QQmlEngine>
 #include <QObject>
 #include <QQuickItem>
 #include <QQmlContext>
+#include <QQuickView>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
 #include <vector>
 

@@ -4,7 +4,7 @@
         <file alias="action_bar.qml">qml/NetworkSim/ActionBar.qml</file>
         <file alias="link.qml">qml/NetworkSim/Link2.qml</file>
         <file alias="main.qml">qml/NetworkSim/main.qml</file>
-        <file alias="menu.qml">qml/NetworkSim/Menu.qml</file>
+        <file alias="menu.qml">qml/NetworkSim/Menu1.qml</file>
         <file>qml/NetworkSim/MenuListModel.qml</file>
         <file>qml/NetworkSim/MenuListView.qml</file>
         <file alias="node.qml">qml/NetworkSim/Nodes.qml</file>
@@ -12,6 +12,10 @@
         <file alias="ph_menu.qml">qml/NetworkSim/PressHoldNodeMenu.qml</file>
         <file alias="routing_table.qml">qml/NetworkSim/RoutingTable.qml</file>
         <file alias="node_dialog.qml">qml/NetworkSim/NodeDialog.qml</file>
+        <file alias="flooding_model.qml">qml/NetworkSim/FloodingRTModel.qml</file>
+        <file alias="flooding_item.qml">qml/NetworkSim/FloodingRTItem.qml</file>
+        <file alias="flooding_routing_table.qml">qml/NetworkSim/FloodingRoutingTable.qml</file>
+        <file alias="main_android.qml">qml/NetworkSim/main_android.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="step">Images/Step.png</file>
@@ -20,5 +24,7 @@
         <file alias="start">Images/Start.png</file>
         <file alias="resume">Images/Resume.png</file>
         <file alias="side_menu">Images/Side Menu.png</file>
+        <file alias="toolbar">Images/toolbar.png</file>
+        <file alias="navigation_previous_item">Images/navigation_previous_item.png</file>
     </qresource>
 </RCC>

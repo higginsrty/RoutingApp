@@ -10,7 +10,7 @@ class Link : public QQuickItem
     Q_OBJECT
 public:
     explicit Link(QQuickItem *parent = 0);
-    void addLink(QString name, int weight, Node *node1, Node *node2, QObject *panel, QQmlEngine *engine);
+    void addLink(QString name, int weight, Node *node1, Node *node2, QObject *panel, QQmlApplicationEngine *engine);
     QObject* get_q_object();
     Node* get_source();
     Node* get_node2();

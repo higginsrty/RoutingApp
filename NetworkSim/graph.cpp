@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Graph::Graph(QObject *panel, QQmlEngine *engine)
+Graph::Graph(QObject *panel, QQmlApplicationEngine *engine)
 {
     this->panel = panel;
     this->engine = engine;
@@ -186,5 +186,7 @@ void Graph::destroy_dialog()
 
 void Graph::show_routing_table(QString node_name)
 {
-    qDebug() << "building routing table";
+    Node *node = get_node_by_name(node_name);
+    node->show_routing_table(engine, qobject_cast<QQuickItem*>(panel));
+
 }

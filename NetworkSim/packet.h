@@ -3,9 +3,9 @@
 
 #include "stdafx.h"
 
-class packet
-{
-public:
+ class packet
+ {
+ public:
     //packet type-> hello or acknowledgement.. should we add "Data Packet Type"?
     enum packet_type{hello, acknowledgement};
 
@@ -40,6 +40,6 @@ private:
 
     //std::vector<Dv dvr_table;
 
-};
-
-#endif // PACKET_H
+ };
+ 
+ #endif // PACKET_H

@@ -6,6 +6,10 @@ import QtQuick 2.0
 
 ListModel {
 
+    property string destination
+    property int weight
+    property string gateway
+
     id: flooding_routing_table_model
 
 

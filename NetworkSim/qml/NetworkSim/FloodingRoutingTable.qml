@@ -20,9 +20,11 @@ Item{
     }
 
     TableView {
+        objectName: "table"
         id: table
+        width: parent.width
+        height: parent.height-100
         y: 100
-        model: flooding_routing_table_model
         TableViewColumn{role:destination;title:"Destination"}
         TableViewColumn{role:weight;title:"Weight"}
         TableViewColumn{role:gateway;title:"Gateway"}

@@ -21,13 +21,14 @@ PRECOMPILED_HEADER += stdafx.h
 # target.path =
 
 OTHER_FILES += \
-    qml/NetworkSim/Menu.qml \
     qml/NetworkSim/ActionBar.qml \
     qml/NetworkSim/Packet.qml \
     qml/NetworkSim/RoutingTable.qml \
     qml/NetworkSim/PressHoldNodeMenu.qml \
     qml/NetworkSim/Nodes.qml \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    qml/NetworkSim/FloodingRTItem.qml \
+    qml/NetworkSim/Menu1.qml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -41,7 +42,7 @@ HEADERS += \
     floodingRT.h
 
 # Please do not modify the following two lines. Required for deployment.
-include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
+include(qtquick2controlsapplicationviewer/qtquick2controlsapplicationviewer.pri)
 qtcAddDeployment()
 
 RESOURCES += \

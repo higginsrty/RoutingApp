@@ -1,10 +1,56 @@
-import QtQuick 2.0
+import QtQuick 2.1
+import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
+import QtQuick.Controls.Styles 1.1
 
-Item {
+ApplicationWindow {
+    visible: true
+    title: qsTr("Network Simulation")
     objectName: "root"
     width: 800
     height: 600
     id: root
+
+    signal onStart()
+    signal onPause()
+    signal onResume()
+    signal onReset()
+    signal onStep()
+
+
+    menuBar: MenuBar {
+        id: menu_bar
+        objectName: "tool_bar"
+
+        Menu {
+            title: qsTr("Simulation")
+            MenuItem {
+                text: qsTr("Quit")
+                onTriggered: Qt.quit();
+            }
+
+            MenuItem {
+                text: qsTr("Start")
+                onTriggered: onStart();
+            }
+            MenuItem {
+                text: qsTr("Step")
+                onTriggered: onStep();
+            }
+            MenuItem {
+                text: qsTr("Pause")
+                onTriggered: onPause();
+            }
+            MenuItem {
+                text: qsTr("Reset")
+                onTriggered: onReset();
+            }
+            MenuItem {
+                text: qsTr("Resume")
+                onTriggered: onResume();
+            }
+        }
+    }
 
     Item {
         objectName: "MainPanel"
@@ -12,25 +58,6 @@ Item {
         width: parent.width
         height: parent.height
         // This is where all other items will be added, such as the menu, nodes, links...etc.
-
-        ActionBar {
-            id: action_bar
-            objectName: "action_bar"
-            Rectangle {
-                anchors.fill: parent
-                color: "red"
-            }
-
-        }
-
-        Menu {
-            objectName: ""
-            x: -width * 0.9
-            y: action_bar.height
-            height: parent.height - action_bar.height
-
-
-        }
 
     }
 }

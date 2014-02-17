@@ -6,11 +6,7 @@ Item {
     height: 100
     z: 50
 
-    signal onStart()
-    signal onPause()
-    signal onResume()
-    signal onReset()
-    signal onStep()
+
 
     PropertyAnimation {
         id: start_anim_cover_in

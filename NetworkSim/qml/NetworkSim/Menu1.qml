@@ -1,13 +1,13 @@
 import QtQuick 2.0
 
 Item {
-    width: parent.width / 2
-    height: parent.height
     id: menu
     z:50
 
     Image {
         anchors.fill: parent
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
         source: "qrc:/images/side_menu"
     }
 

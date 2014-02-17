@@ -10,7 +10,7 @@ class Graph : public QQuickItem
 {
     Q_OBJECT
 public:
-    Graph(QObject *panel, QQmlEngine *engine);
+    Graph(QObject *panel, QQmlApplicationEngine *engine);
     Node* add_node(QString name, int x, int y, int id);
     std::vector<Link*> get_link_from_node(Node *node);
     std::vector<Node*> get_node_from_link(Link *link);
@@ -30,7 +30,7 @@ public:
 
 private:
     QObject *panel;
-    QQmlEngine *engine;
+    QQmlApplicationEngine *engine;
     std::vector<Link*> link_pool;
     std::vector<Node*> node_pool;
 

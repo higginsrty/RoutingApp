@@ -11,13 +11,16 @@ public:
     // Constructor (parent specifies the parent of this item
     explicit FloodingRT(QQuickItem *parent = 0);
     // Updating the table for each node
-    void update_table(int number_of_nodes, Node *source_node);
+    void update_table(int number_of_nodes, Node *source_node, Graph *graph);
     // Visualizing the table if the node is clicked on
-    void view_full_table();
+    int view_full_table(QQmlApplicationEngine *engine, QQuickItem *panel);
 
 private:
     int number_of_nodes;
     Node *source_node;
+    std::vector<Node*> destination_node_pool;
+    std::vector<Node*> gateway_node_pool;
+    std::vector<int> weight_pool;
 };
 
 #endif // FLOODINGRT_H
