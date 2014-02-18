@@ -5,7 +5,6 @@
 
 class FloodingRT;
 class Link;
-
 class Packet;
 
 struct Neighbor{
@@ -23,9 +22,12 @@ class Node : public QQuickItem
     Q_OBJECT
 
 public:
+    int x,y;
     explicit Node(QQuickItem *parent = 0);
     int get_id();
     bool is_source();
+    int get_x();
+    int get_y();
     QString get_name();
     void set_source(bool new_source);
     void setup_node(QString name, int x, int y, QObject* main_panel, QQmlApplicationEngine *engine);

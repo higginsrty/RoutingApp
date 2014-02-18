@@ -3,6 +3,7 @@
 FloodingRT::FloodingRT(QQuickItem *parent) :
     QQuickItem(parent)
 {
+
 }
 
 void FloodingRT::update_table(int number_of_nodes, Node *source_node, Graph *graph)

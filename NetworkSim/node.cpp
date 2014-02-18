@@ -53,6 +53,8 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
     item->setProperty("x", x);
     item->setProperty("y", y);
     item->setProperty("name", name);
+    this->x = x;
+    this->y = y;
     this->node = object;
     this->name = name;
     rt = new FloodingRT();
@@ -72,6 +74,14 @@ QObject* Node::get_q_object() {
 
 int Node::get_id(){
     return node_id;
+}
+
+int Node::get_x(){
+    return x;
+}
+
+int Node::get_y(){
+    return y;
 }
 
 void Node::show_routing_table(QQmlApplicationEngine *engine, QQuickItem *panel)

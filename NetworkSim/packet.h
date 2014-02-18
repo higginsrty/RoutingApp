@@ -37,7 +37,7 @@ private:
     Node* source_node;
     Node* destination_node;
     double time;
-
+    int x,y;
     //std::vector<Dv dvr_table;
 
  };
