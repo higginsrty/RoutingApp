@@ -5,13 +5,14 @@
 
 class Link;
 class Node;
+class Packet;
 
 class Graph : public QQuickItem
 {
     Q_OBJECT
 public:
     Graph(QObject *panel, QQmlApplicationEngine *engine);
-    Node* add_node(QString name, int x, int y, int id);
+    Node* add_node(QString name, int x, int y, int id, Packet *p1);
     std::vector<Link*> get_link_from_node(Node *node);
     std::vector<Node*> get_node_from_link(Link *link);
     std::vector<Link*> get_link_from_node_id(int id);
@@ -27,12 +28,14 @@ public:
     void change_to_cbt();
     void change_to_dv();
     void change_to_ls();
+    Node* get_source();
 
 private:
     QObject *panel;
     QQmlApplicationEngine *engine;
     std::vector<Link*> link_pool;
     std::vector<Node*> node_pool;
+    void update_dests(Node *node);
 
 signals:
 

@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 Item {
+
     width: 50
     height: 50
     property int dest_x
@@ -29,7 +30,6 @@ Item {
                 property: "x"
                 to: dest_x-x
                 duration: timer
-
             }
 
             PropertyAnimation{

@@ -6,7 +6,7 @@ Graph::Graph(QObject *panel, QQmlApplicationEngine *engine)
     this->engine = engine;
 }
 
-Node* Graph::add_node(QString name, int x, int y, int id)
+Node* Graph::add_node(QString name, int x, int y, int id, Packet *p1)
 {
     Node *node = get_node_by_name(name);
     if (node != NULL)
@@ -21,7 +21,21 @@ Node* Graph::add_node(QString name, int x, int y, int id)
     QObject::connect(node->get_q_object(), SIGNAL(press_and_hold_node(QString)), this, SLOT(press_and_hold_node(QString)));
     QObject::connect(node->get_q_object(), SIGNAL(show_routing_table(QString)), this, SLOT(show_routing_table(QString)));
     node_pool.push_back(node);
+    node->p1 = p1;
+    p1->set_source_node(node);
+    p1->set_destination_node(get_node_by_id(23));
     return node;
+}
+
+Node* Graph::get_source()
+{
+    std::vector<Node*>::iterator iter;
+    for (iter = node_pool.begin(); iter!=node_pool.end(); iter++)
+    {
+        Node *n1 = *iter;
+        if (n1->is_source())
+            return n1;
+    }
 }
 
 std::vector<Link*> Graph::get_link_from_node_id(int nodeID)
@@ -163,6 +177,21 @@ void Graph::update_node_position(qreal x, qreal y, QString string)
             tmp->setProperty("x2", x + x_off/2);
             tmp->setProperty("y2", y + y_off/2);
         }
+    }
+    node->set_x(x);
+    node->set_y(y);
+    update_dests(node);
+}
+
+void Graph::update_dests(Node *node)
+{
+    std::vector<Node*>::iterator iter;
+    for (iter=node_pool.begin(); iter != node_pool.end(); iter++)
+    {
+        Node *n1 = *iter;
+        Node *temp_dest = n1->p1->get_destination_node();
+        if (temp_dest->get_id() == node->get_id())
+            n1->p1->update_dest_pos(node);
     }
 }
 

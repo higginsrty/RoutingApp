@@ -63,30 +63,47 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
     this->name = name;
     rt = new FloodingRT();
     routing_table = new RoutingTable();
+
 }
 
-bool Node::is_source() {
+bool Node::is_source()
+{
     return source;
 }
 
-void Node::set_source(bool new_source) {
+void Node::set_source(bool new_source)
+{
     source = new_source;
 }
 
-QObject* Node::get_q_object() {
+QObject* Node::get_q_object()
+{
     return node;
 }
 
-int Node::get_id(){
+int Node::get_id()
+{
     return node_id;
 }
 
-int Node::get_x(){
+int Node::get_x()
+{
     return x;
 }
 
-int Node::get_y(){
+int Node::get_y()
+{
     return y;
+}
+
+void Node::set_x(int x)
+{
+    this->x = x;
+}
+
+void Node::set_y(int y)
+{
+    this->y = y;
 }
 
 void Node::show_routing_table(QQmlApplicationEngine *engine, QQuickItem *panel)

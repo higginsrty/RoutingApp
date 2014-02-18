@@ -33,6 +33,9 @@ public:
     void set_id(int id);
     void show_routing_table(QQmlApplicationEngine *engine, QQuickItem *panel);
 
+    void set_x(int x);
+    void set_y(int y);
+
     //added 2/4/14
     std::vector<int> get_neighbor_vector();
 
@@ -45,6 +48,7 @@ public:
     std::vector<Packet> get_update_packets();
     */
 
+    Packet *p1;
     int process_packet(Packet *packet);
 
 private:

@@ -27,14 +27,27 @@ void Packet::set_packet_type(PacketType type)
     this->type = type;
 }
 
+std::pair<int,int> location(Node* node){
+    std::pair<int,int> loc;
+    loc.first = node->get_x();
+    loc.second = node->get_y();
+    return loc;
+}
+
 void Packet::set_source_node(Node* node)
 {   //assign the source node
     source_node = node;
+    std::pair<int,int> loc = location(node);
+    QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
+    item->setProperty("x", loc.first+25);
+    item->setProperty("y", loc.second+25);
+
 }
 
 void Packet::set_destination_node(Node* node)
 {  //assign the destination node
     destination_node = node;
+    update_dest_pos(node);
 }
 
 double Packet::get_time()
@@ -57,30 +70,24 @@ Node* Packet::get_destination_node()
     return destination_node;
 }
 
-std::pair<int,int> location(Node* node){
-    std::pair<int,int> loc;
-    loc.first = node->get_x();
-    loc.second = node->get_y();
-    return loc;
-}
-
-void Packet::create_packet(QString name, Node* source, Node* dest, QObject *main_panel, QQmlApplicationEngine *engine) {
+void Packet::create_packet(QString name, QObject *main_panel, QQmlApplicationEngine *engine) {
     // Load Node QML file
     QQmlComponent component(engine, QUrl("qrc:/qml_files/packet.qml"));
     // Create QObject
-    QObject *object = component.create();
+    pac_obj = component.create();
     // Cast it as a QQuickItem
-    QQuickItem *item = qobject_cast<QQuickItem*>(object);
+    QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
     // Set the parent as the main_panel (this changes when added to a link)
     item->setParentItem(qobject_cast<QQuickItem*>(main_panel));
-    std::pair<int,int> loc = location(source);
-    std::pair<int,int> dest_loc = location(dest);
-    item->setProperty("x", loc.first+25);
-    item->setProperty("y", loc.second+25);
-    //item->setProperty("state", get_packet_type);
+    item->setProperty("name", name);
+}
+
+void Packet::update_dest_pos(Node *node)
+{
+    std::pair<int,int> dest_loc = location(node);
+    QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
     item->setProperty("dest_x", dest_loc.first+25);
     item->setProperty("dest_y", dest_loc.second+25);
-    item->setProperty("name", name);
 }
 
 /***The following will need to be adjusted after DVR table is created***

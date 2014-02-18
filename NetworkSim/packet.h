@@ -5,7 +5,6 @@
 
  class Packet : public QQuickItem
  {
-
      Q_OBJECT
  public:
     //packet type-> hello or acknowledgement.. should we add "Data Packet Type"?
@@ -19,6 +18,7 @@
 
     Node* get_destination_node();
     void set_destination_node(Node* node);
+    void update_dest_pos(Node* node);
 
     std::pair<int,int> source_loc(Node* node);
 
@@ -27,7 +27,7 @@
 
     double get_time();
     void set_time(double t);
-    void create_packet(QString name, Node* source, Node* dest, QObject *main_panel, QQmlApplicationEngine *engine);
+    void create_packet(QString name, QObject *main_panel, QQmlApplicationEngine *engine);
     /*
      void set_dvr_table(std::vector<Dv> dvr_table);
      void add_dvr_entry(Node* destination_node, int cost);
@@ -46,7 +46,12 @@ private:
     double time;
     int flood_flag;
     int x,y;
+    QObject *pac_obj;
     //std::vector<Dv dvr_table;
+
+ signals:
+
+ public slots:
 
  };
  
