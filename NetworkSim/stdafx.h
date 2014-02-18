@@ -12,8 +12,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include <vector>
+enum PacketType {HELLO, ACK, DATA};
 
+#include <vector>
+#include <routingtable.h>
 #include <graph.h>
 #include <link.h>
 #include <stdlib.h>

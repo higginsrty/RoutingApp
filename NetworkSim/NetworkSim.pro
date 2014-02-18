@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     packet.cpp \
     link.cpp \
     graph.cpp \
-    floodingRT.cpp
+    floodingRT.cpp \
+    routingtable.cpp
 
 PRECOMPILED_HEADER += stdafx.h
 
@@ -39,7 +40,8 @@ HEADERS += \
     link.h \
     stdafx.h \
     graph.h \
-    floodingRT.h
+    floodingRT.h \
+    routingtable.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2controlsapplicationviewer/qtquick2controlsapplicationviewer.pri)

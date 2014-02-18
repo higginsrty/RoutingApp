@@ -14,9 +14,6 @@ struct Neighbor{
     Neighbor(int ID, double delay){neighbor_ID = ID; link_delay = delay;}
 };
 
-
-
-
 class Node : public QQuickItem
 {
     Q_OBJECT
@@ -48,7 +45,7 @@ public:
     std::vector<Packet> get_update_packets();
     */
 
-    int process_packet(Packet packet);
+    int process_packet(Packet *packet);
 
 private:
     int node_id;
@@ -56,7 +53,9 @@ private:
     bool source;
     QObject* node;
     FloodingRT *rt;
-    bool process_dv_packet(Packet packet);
+    RoutingTable *routing_table;
+    std::vector<Packet*> update_packets;
+    bool process_dv_packet(Packet *packet);
     void send_update_packets(double weight);
 
 

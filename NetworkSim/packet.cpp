@@ -6,15 +6,25 @@ Packet::Packet(QQuickItem *parent) :
 {
 }
 
-Packet::packet_type Packet::get_packet_type()
-{   //get packet type
-    //can be hello packet or acknowledgement packet
-    return packet_type;
+int Packet::get_flood_flag()
+{
+    return this->flood_flag;
 }
 
-void Packet::set_packet_type(packet_type type)
+void Packet::set_flood_flag(int flag)
+{
+    this->flood_flag = flag;
+}
+
+PacketType Packet::get_packet_type()
+{   //get packet type
+    //can be hello packet or acknowledgement packet
+    return type;
+}
+
+void Packet::set_packet_type(PacketType type)
 {   //assigns hello or acknowledgement type to packet
-    packet_type = type;
+    this->type = type;
 }
 
 void Packet::set_source_node(Node* node)

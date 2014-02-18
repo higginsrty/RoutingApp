@@ -3,22 +3,25 @@
 
 #include "stdafx.h"
 
- class packet
+ class Packet : public QQuickItem
  {
+
+     Q_OBJECT
  public:
     //packet type-> hello or acknowledgement.. should we add "Data Packet Type"?
-    enum packet_type{hello, acknowledgement};
+    Packet(QQuickItem *parent = 0);
 
-    packet();
-
-    packet_type get_packet_type();
-    void set_packet_type(packet_type type);
+    PacketType get_packet_type();
+    void set_packet_type(PacketType type);
 
     Node* get_source_node();
     void set_source_node(Node* node);
 
     Node* get_destination_node();
     void set_destination_node(Node* node);
+
+    int get_flood_flag();
+    void set_flood_flag(int flag);
 
     double get_time();
     void set_time(double t);
@@ -33,10 +36,11 @@
     */
 
 private:
-    packet_type type;
+    PacketType type;
     Node* source_node;
     Node* destination_node;
     double time;
+    int flood_flag;
     int x,y;
     //std::vector<Dv dvr_table;
 

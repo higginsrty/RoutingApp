@@ -11,24 +11,28 @@ void Node::set_id(int id)
     node_id = id;
 }
 
-int Node::process_packet(Packet packet){
-    int destination_node = packet.get_destination_node()->get_id();
+int Node::process_packet(Packet *packet){
+    int flood_flag = packet->get_flood_flag();
+    if (flood_flag == 1)
+        // do something (flooding wise)
+        return 0;
+    int destination_node = packet->get_destination_node()->get_id();
 
-    if(destination_node != node_id)
+    if(destination_node != this->get_id())
     {
-        if(routing_table.get_cost(destination_node) != -1)
-            return routing_table.get_cost(destination_node) + routing_table.get_next_hop(destination_node)->process_packet(packet);
+        if(routing_table->get_cost(destination_node) != -1)
+            return routing_table->get_cost(destination_node) + routing_table->get_next_hop(destination_node)->process_packet(packet);
         else
             update_packets.push_back(packet);
     }
     else
     {   //I'm assuming we're going to add data packets??
-        if(packet.get_packet_type() == Packet::data)
+        if(packet->get_packet_type() == DATA)
             return 0;
         else
         {
             if(process_packet(packet))
-                send_update_packets(packet.get_time());
+                send_update_packets(packet->get_time());
             return 0;
         }
     }
@@ -58,6 +62,7 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
     this->node = object;
     this->name = name;
     rt = new FloodingRT();
+    routing_table = new RoutingTable();
 }
 
 bool Node::is_source() {
@@ -87,4 +92,9 @@ int Node::get_y(){
 void Node::show_routing_table(QQmlApplicationEngine *engine, QQuickItem *panel)
 {
     rt->view_full_table(engine,panel);
+}
+
+void Node::send_update_packets(double weight)
+{
+    return;
 }
