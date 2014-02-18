@@ -57,6 +57,32 @@ Node* Packet::get_destination_node()
     return destination_node;
 }
 
+std::pair<int,int> location(Node* node){
+    std::pair<int,int> loc;
+    loc.first = node->get_x();
+    loc.second = node->get_y();
+    return loc;
+}
+
+void Packet::create_packet(QString name, Node* source, Node* dest, QObject *main_panel, QQmlApplicationEngine *engine) {
+    // Load Node QML file
+    QQmlComponent component(engine, QUrl("qrc:/qml_files/packet.qml"));
+    // Create QObject
+    QObject *object = component.create();
+    // Cast it as a QQuickItem
+    QQuickItem *item = qobject_cast<QQuickItem*>(object);
+    // Set the parent as the main_panel (this changes when added to a link)
+    item->setParentItem(qobject_cast<QQuickItem*>(main_panel));
+    std::pair<int,int> loc = location(source);
+    std::pair<int,int> dest_loc = location(dest);
+    item->setProperty("x", loc.first+25);
+    item->setProperty("y", loc.second+25);
+    //item->setProperty("state", get_packet_type);
+    item->setProperty("dest_x", dest_loc.first+25);
+    item->setProperty("dest_y", dest_loc.second+25);
+    item->setProperty("name", name);
+}
+
 /***The following will need to be adjusted after DVR table is created***
  *
 void Packet::set_dvr_table(vector<Dv> dv_table)

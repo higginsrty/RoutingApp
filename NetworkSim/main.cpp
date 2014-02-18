@@ -43,12 +43,18 @@ int main(int argc, char *argv[])
     Graph *main_graph = new Graph(main_panel, engine);
 
     Node *n1 = main_graph->add_node("node1", 100, 100, 23);
-    Node *n2 = main_graph->add_node("node2", 200,200,40);
-    Node *n3 = main_graph->add_node("node3", 400,400, 20);
+    Node *n2 = main_graph->add_node("node2", 400, 200, 40);
+    Node *n3 = main_graph->add_node("node3", 550, 400, 20);
 
     main_graph->add_link(n1, n2, 100);
     main_graph->add_link(n2,n3,120);
     main_graph->add_link(n3, n1, 200);
+
+    Packet *p1 = new Packet();
+    p1->set_source_node(n1);
+    //p1->set_packet_type(Hello);
+    p1->create_packet("packet1", p1->get_source_node(), n3, main_panel, engine);
+
     return app.exec();
 }
 

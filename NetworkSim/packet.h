@@ -20,12 +20,14 @@
     Node* get_destination_node();
     void set_destination_node(Node* node);
 
+    std::pair<int,int> source_loc(Node* node);
+
     int get_flood_flag();
     void set_flood_flag(int flag);
 
     double get_time();
     void set_time(double t);
-
+    void create_packet(QString name, Node* source, Node* dest, QObject *main_panel, QQmlApplicationEngine *engine);
     /*
      void set_dvr_table(std::vector<Dv> dvr_table);
      void add_dvr_entry(Node* destination_node, int cost);
@@ -36,6 +38,8 @@
     */
 
 private:
+    QObject *panel;
+    QQmlApplicationEngine *engine;
     PacketType type;
     Node* source_node;
     Node* destination_node;
