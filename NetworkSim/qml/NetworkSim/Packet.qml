@@ -48,6 +48,11 @@ Item {
 
 
         }
+<<<<<<< HEAD
+=======
+        signal send()
+             onSend: process_packet(1);
+>>>>>>> d38e71a61e4a5bc8530ff3c25968335850f9c163
 
         states: [
             State {
