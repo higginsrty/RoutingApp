@@ -25,6 +25,8 @@ PacketType Packet::get_packet_type()
 void Packet::set_packet_type(PacketType type)
 {   //assigns hello or acknowledgement type to packet
     this->type = type;
+    QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
+    item->setProperty("type", 1);
 }
 
 std::pair<int,int> location(Node* node){
@@ -58,6 +60,8 @@ double Packet::get_time()
 void Packet::set_time(double t)
 {
     time = t;
+    QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
+    item->setProperty("timer" , t);
 }
 
 Node* Packet::get_source_node()

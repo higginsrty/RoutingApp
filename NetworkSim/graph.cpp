@@ -6,7 +6,7 @@ Graph::Graph(QObject *panel, QQmlApplicationEngine *engine)
     this->engine = engine;
 }
 
-Node* Graph::add_node(QString name, int x, int y, int id, Packet *p1)
+Node* Graph::add_node(QString name, int x, int y, int id)
 {
     Node *node = get_node_by_name(name);
     if (node != NULL)
@@ -21,14 +21,96 @@ Node* Graph::add_node(QString name, int x, int y, int id, Packet *p1)
     QObject::connect(node->get_q_object(), SIGNAL(press_and_hold_node(QString)), this, SLOT(press_and_hold_node(QString)));
     QObject::connect(node->get_q_object(), SIGNAL(show_routing_table(QString)), this, SLOT(show_routing_table(QString)));
     node_pool.push_back(node);
-    node->p1 = p1;
-    p1->set_source_node(node);
-    p1->set_destination_node(get_node_by_id(23));
     return node;
 }
 
+
+/*
+ * Starts with the source node and a NULL previous node(from the model start)
+ * and then once the signal slot communication works we can have the signal
+ * that the packet was recieved at its destination (node n) and then
+ * pass node n to this function and prev = the source of said packet
+ * ----------------------------------------------------------
+ * SOMETIMES IT BUGS AND SPAWNS THE PACKETS WRONG OR CRASHES
+ * ----------------------------------------------------------
+ * I have't figured out why it does this yet but simply rerunning fixes it
+ */
+void Graph::send_packets(Node* node, Node* prev)
+{
+    /*The next two lines are for testing node 2's ability to create packets
+    *remove the comments to force the method to use node2 as the origin and
+    * and node1 as the prev node
+    */
+    //node = get_node_by_name("node2");
+    //prev = get_node_by_name("node1");
+    //If the passed node is the source it creates a packet for every link the node has
+    if(node->is_source()==true){
+        //Get All links lined to this node
+        std::vector<Link*> links= get_link_from_node(node);
+        qDebug() << "Links fetched...";
+        //Iterate through all the links and make a packet for each one
+        for (int i=0; i<links.size();i++)
+        {
+            Node* src = links[i]->get_source();
+            Node* dest = links[i]->get_node2();
+            Packet *p = new Packet();
+            p->create_packet("packet",panel,engine);
+            p->set_source_node(src);
+            p->set_destination_node(dest);
+            p->set_time(links[i]->get_weight());
+            p->set_packet_type(ACK);
+            packet_pool.push_back(p);
+            qDebug()<< "Packet" << i+1 << "Created...";
+        }
+    }
+    /*If the node is not the source send a packet to every node
+    *expect the node it recieved the packet from
+    *(Question) Would it be just the node it recieved the packet from
+    *or any node that it has ever received a packet from?
+    */
+    else{
+        std::vector<Link*> links= get_link_from_node(node);
+        for (int i=0; i<links.size();i++){
+            Node* src = links[i]->get_source();
+            Node* dest = links[i]->get_node2();
+            if((src->get_id() != prev->get_id()) && (dest->get_id() !=prev->get_id()))
+            {
+                Packet *p = new Packet();
+                p->create_packet("packet",panel,engine);
+
+                /*Flips the "source" of the packets to make sure it starts
+                 * on the current node because it could spawn
+                 * on the other node of the link due to the order in which
+                 * the nodes were passed to the create link method
+                 */
+                if(src->get_id() == node->get_id())
+                {
+                    p->set_source_node(src);
+                    p->set_destination_node(dest);
+                }
+                else{
+                    p->set_source_node(dest);
+                    p->set_destination_node(src);
+                }
+                p->set_time(links[i]->get_weight());
+                p->set_packet_type(ACK);
+                packet_pool.push_back(p);
+            }
+
+
+        }
+    }
+
+}
+
+void Graph::destroy_packets(){
+    packet_pool.clear();
+}
+
+
 Node* Graph::get_source()
 {
+
     std::vector<Node*>::iterator iter;
     for (iter = node_pool.begin(); iter!=node_pool.end(); iter++)
     {
@@ -180,7 +262,7 @@ void Graph::update_node_position(qreal x, qreal y, QString string)
     }
     node->set_x(x);
     node->set_y(y);
-    update_dests(node);
+
 }
 
 void Graph::update_dests(Node *node)
@@ -219,3 +301,5 @@ void Graph::show_routing_table(QString node_name)
     node->show_routing_table(engine, qobject_cast<QQuickItem*>(panel));
 
 }
+
+

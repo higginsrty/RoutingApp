@@ -13,7 +13,7 @@ public:
     bool change_algorithm(std::string alg);
     int get_algorithm();
     int set_main_panel(QObject *main_panel);
-    int set_graph(Graph *g);
+    void set_graph(Graph *g);
 
 private:
     QObject *main_panel;

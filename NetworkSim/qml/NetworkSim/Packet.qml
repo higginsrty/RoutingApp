@@ -4,14 +4,20 @@ Item {
 
     width: 50
     height: 50
+    z: 20
+
     property int dest_x
     property int dest_y
-    z: 20
+    property int type
+    property string state
     property int timer
-    timer: 500
+
+    signal reached_dest(bool bool)
+
     Rectangle {
         id: packet
-        state: "Hello"
+        state: "ACK"
+
         width: parent.width
         height: parent.height
         radius: width*.5
@@ -20,6 +26,7 @@ Item {
             onClicked:{
                 console.log("clicked")
                 animation.running = true
+
             }
         }
         ParallelAnimation{
@@ -38,24 +45,27 @@ Item {
                 to: dest_y-y
                 duration: timer
             }
+
+
         }
+
         states: [
             State {
-                name: "Acknowldgement"
+                name: "ACK"
                 PropertyChanges {
                     target: packet
                     color: "blue"
                 }
             },
             State {
-                name: "Hello"
+                name: "HELLO"
                 PropertyChanges {
                     target: packet
                     color: "yellow"
                 }
             },
             State {
-                name: "Data"
+                name: "DATA"
                 PropertyChanges {
                     target: packet
                     color: "red"

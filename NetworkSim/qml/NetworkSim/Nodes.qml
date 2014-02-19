@@ -26,9 +26,9 @@ Item {
         color: "green"
         MouseArea {
             anchors.fill: parent
-            onClicked: {
+            /*onClicked: {
                 show_routing_table(parent.name_id)
-            }
+            }*/
             drag.target: node
             onPositionChanged: {
                 if (drag.active === true)

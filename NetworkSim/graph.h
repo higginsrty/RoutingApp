@@ -12,7 +12,7 @@ class Graph : public QQuickItem
     Q_OBJECT
 public:
     Graph(QObject *panel, QQmlApplicationEngine *engine);
-    Node* add_node(QString name, int x, int y, int id, Packet *p1);
+    Node* add_node(QString name, int x, int y, int id);
     std::vector<Link*> get_link_from_node(Node *node);
     std::vector<Node*> get_node_from_link(Link *link);
     std::vector<Link*> get_link_from_node_id(int id);
@@ -22,6 +22,8 @@ public:
     bool update_link_weight(Link* lkn, int weight);
     bool update_link_weight(Node *node1, Node *node2, int weight);
 
+    void send_packets(Node *node, Node *prev);
+    void destroy_packets();
     bool update_algorithm(int alg_id);
 
     void change_to_flooding();
@@ -35,6 +37,7 @@ private:
     QQmlApplicationEngine *engine;
     std::vector<Link*> link_pool;
     std::vector<Node*> node_pool;
+    std::vector<Packet*> packet_pool;
     void update_dests(Node *node);
 
 signals:

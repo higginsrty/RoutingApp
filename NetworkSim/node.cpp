@@ -66,6 +66,7 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
 
 }
 
+
 bool Node::is_source()
 {
     return source;

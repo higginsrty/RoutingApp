@@ -15,12 +15,10 @@ int Model::set_main_panel(QObject *main_panel)
     return 0;
 }
 
-int Model::set_graph(Graph *g)
+void Model::set_graph(Graph *g)
 {
-   if (g == NULL)
-       return -1;
+
    graph = g;
-   return 0;
 }
 
 void Model::start_sim()
@@ -30,13 +28,16 @@ void Model::start_sim()
      *
      * Multicasting has "groups"
      */
+    qDebug()<<"Running...";
     Node *source = graph->get_source();
-    source->send_packets(/*Packet or null for source*/);
+    qDebug() << "Source Fetched...";
+    graph->send_packets(source, NULL);
 }
 
 void Model::reset_sim()
 {
     qDebug() << "reset";
+    graph->destroy_packets();
 }
 
 void Model::pause_sim()
@@ -46,6 +47,7 @@ void Model::pause_sim()
      * in the graph, it is tracking where the packets are
      * And this will stop all animation and store how much time is left
      * in each individual animation (its most generally going to be unique to every packet)
+     *
      */
     qDebug() << "paused";
 }

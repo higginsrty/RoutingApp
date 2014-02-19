@@ -14,8 +14,8 @@ public:
     QObject* get_q_object();
     Node* get_source();
     Node* get_node2();
+    double get_weight();
     void update_weight(int w);
-    int get_weight();
 
 private:
     Node *node1;

@@ -47,3 +47,7 @@ Node* Link::get_node2() {
 void Link::update_weight(int w) {
     weight = w;
 }
+
+double Link::get_weight(){
+    return weight;
+}
