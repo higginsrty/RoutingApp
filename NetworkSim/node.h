@@ -51,7 +51,8 @@ public:
     */
 
     Packet *p1;
-    int process_packet(Packet *packet);
+    //int process_packet(Packet *packet);
+    // int process_packet(int node_reached_destination);
 
 private:
     int node_id;

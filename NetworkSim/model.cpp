@@ -15,10 +15,10 @@ int Model::set_main_panel(QObject *main_panel)
     return 0;
 }
 
-void Model::set_graph(Graph *g)
+void Model::set_graph(Graph &g)
 {
 
-   graph = g;
+   graph = &g;
 }
 
 void Model::start_sim()
@@ -54,11 +54,6 @@ void Model::pause_sim()
 
 void Model::resume_sim()
 {
-    /*
-     * Gets the position for the packet,
-     * tells the packet to move to the destination from its current position
-     * uses the stored time left to tell how long to reach the destination
-     */
     qDebug() << "resuming";
 }
 

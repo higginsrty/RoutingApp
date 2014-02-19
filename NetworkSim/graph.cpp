@@ -67,13 +67,16 @@ void Graph::send_packets(Node* node, Node* prev)
     *expect the node it recieved the packet from
     *(Question) Would it be just the node it recieved the packet from
     *or any node that it has ever received a packet from?
+    *
+    * (ANSWER)
+    * Just the node it received the packet from, that is why flooding algorithms are so bad
     */
-    else{
+    else {
         std::vector<Link*> links= get_link_from_node(node);
         for (int i=0; i<links.size();i++){
             Node* src = links[i]->get_source();
             Node* dest = links[i]->get_node2();
-            if((src->get_id() != prev->get_id()) && (dest->get_id() !=prev->get_id()))
+            if((src->get_id() != prev->get_id()) && (dest->get_id() != prev->get_id()))
             {
                 Packet *p = new Packet();
                 p->create_packet("packet",panel,engine);
@@ -252,7 +255,7 @@ void Graph::update_node_position(qreal x, qreal y, QString string)
         QQuickItem *node1 = qobject_cast<QQuickItem*>(obj);
         int y_off = node1->height();
         int x_off = node1->width();
-        if (temp->get_source() == node) {
+        if (temp->get_source()->get_id() == node->get_id()) {
             tmp->setProperty("x1", x + x_off/2);
             tmp->setProperty("y1", y + y_off/2);
         } else {
@@ -262,7 +265,26 @@ void Graph::update_node_position(qreal x, qreal y, QString string)
     }
     node->set_x(x);
     node->set_y(y);
+    update_source_packet_pos(node);
+    update_dests(node);
+}
 
+void Graph::update_source_packet_pos(Node *node)
+{
+    if (packet_pool.size() == 0)
+        return;
+    std::vector<Packet*>::iterator iter;
+    for (iter = packet_pool.begin(); iter != packet_pool.end(); iter++)
+    {
+        Packet *p1 = *iter;
+        if (p1->get_source_node()->get_id() == node->get_id())
+        {
+            QObject *obj = p1->get_q_object();
+            QQuickItem *item = qobject_cast<QQuickItem*>(obj);
+            item->setProperty("x",node->get_x()+25);
+            item->setProperty("y",node->get_y()+25);
+        }
+    }
 }
 
 void Graph::update_dests(Node *node)
@@ -271,9 +293,14 @@ void Graph::update_dests(Node *node)
     for (iter=node_pool.begin(); iter != node_pool.end(); iter++)
     {
         Node *n1 = *iter;
-        Node *temp_dest = n1->p1->get_destination_node();
-        if (temp_dest->get_id() == node->get_id())
-            n1->p1->update_dest_pos(node);
+        std::vector<Packet*>::iterator iter1;
+        for (iter1=packet_pool.begin(); iter1 != packet_pool.end(); iter1++)
+        {
+            Packet *p1 = *iter1;
+            Node *temp_dest = p1->get_destination_node();
+            if (temp_dest->get_id() == node->get_id())
+                p1->update_dest_pos(node);
+        }
     }
 }
 

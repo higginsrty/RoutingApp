@@ -6,6 +6,11 @@ Packet::Packet(QQuickItem *parent) :
 {
 }
 
+QObject* Packet::get_q_object()
+{
+    return pac_obj;
+}
+
 int Packet::get_flood_flag()
 {
     return this->flood_flag;

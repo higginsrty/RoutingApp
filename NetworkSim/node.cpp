@@ -10,7 +10,7 @@ void Node::set_id(int id)
 {
     node_id = id;
 }
-
+/*
 int Node::process_packet(Packet *packet){
     int flood_flag = packet->get_flood_flag();
     if (flood_flag == 1)
@@ -38,7 +38,12 @@ int Node::process_packet(Packet *packet){
     }
 }//end of process_packet
 
+*/
 
+void Node::process_packet(int node_reached_destination)
+{
+
+}
 
 QString Node::get_name()
 {
@@ -63,7 +68,6 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
     this->name = name;
     rt = new FloodingRT();
     routing_table = new RoutingTable();
-
 }
 
 

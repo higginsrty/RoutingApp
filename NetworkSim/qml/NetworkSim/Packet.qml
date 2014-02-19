@@ -2,6 +2,8 @@ import QtQuick 2.0
 
 Item {
 
+    signal send()
+
     width: 50
     height: 50
     z: 20
@@ -48,11 +50,6 @@ Item {
 
 
         }
-<<<<<<< HEAD
-=======
-        signal send()
-             onSend: process_packet(1);
->>>>>>> d38e71a61e4a5bc8530ff3c25968335850f9c163
 
         states: [
             State {

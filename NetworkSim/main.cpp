@@ -41,16 +41,9 @@ int main(int argc, char *argv[])
 
     // Main Graph object
     Graph *main_graph = new Graph(main_panel, engine);
-    /*
-    Packet *p = new Packet();
-    p->create_packet("pack",main_panel,engine);
 
-    Packet *p2 = new Packet();
-    p2->create_packet("pack1",main_panel,engine);
-
-    Packet *p1 = new Packet();
-    p1->create_packet("pack2",main_panel,engine);
-    */
+    // This works now!
+    model->set_graph(*main_graph);
 
     Node *n1 = main_graph->add_node("node1", 100, 100, 23);
     Node *n2 = main_graph->add_node("node2", 400, 200, 40);
@@ -62,7 +55,6 @@ int main(int argc, char *argv[])
     main_graph->add_link(n1, n3, 200);
     main_graph->add_link(n1, n4, 800);
     main_graph->add_link(n2, n5, 1600);
-    model->set_graph(main_graph);
 
     return app.exec();
 }

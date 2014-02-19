@@ -39,6 +39,7 @@ private:
     std::vector<Node*> node_pool;
     std::vector<Packet*> packet_pool;
     void update_dests(Node *node);
+    void update_source_packet_pos(Node *node);
 
 signals:
 

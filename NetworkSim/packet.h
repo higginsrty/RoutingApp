@@ -24,7 +24,7 @@
 
     int get_flood_flag();
     void set_flood_flag(int flag);
-
+    QObject* get_q_object();
     double get_time();
     void set_time(double t);
     void create_packet(QString name, QObject *main_panel, QQmlApplicationEngine *engine);
