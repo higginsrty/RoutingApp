@@ -18,6 +18,8 @@ class Node : public QQuickItem
 {
     Q_OBJECT
 
+    int packet_reached_destination = 0; //change to 1 if it has
+
 public:
     int x,y;
     explicit Node(QQuickItem *parent = 0);
@@ -66,7 +68,7 @@ private:
 signals:
 
 public slots:
-
+    void process_packet(int node_reached_destination);
 };
 
 #endif // NODE_H

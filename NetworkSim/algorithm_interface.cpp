@@ -43,7 +43,7 @@ int minimum_distance(int distance[], bool shortest_path_set[])
 void algorithm_interface::dijkstra_algorithm(Node *source_node)
 {//used to calculated the shortest path from source node to each destination node
 
-    //output array will hold the shortest distance from source_node to nodes
+    //output array will hold the shortest distance from source_node to each node
     int distance[number_of_nodes];
 
     //set to true if the vertex is included in the shortest path
@@ -78,8 +78,6 @@ void algorithm_interface::dijkstra_algorithm(Node *source_node)
 
             }//end of if statement
         }//end of for loop
-
-
     }//end of for loop
 
 }//end of dijkstra's algorithm

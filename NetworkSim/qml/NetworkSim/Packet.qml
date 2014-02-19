@@ -39,6 +39,9 @@ Item {
                 duration: timer
             }
         }
+        signal send()
+             onSend: process_packet(1);
+
         states: [
             State {
                 name: "Acknowldgement"
