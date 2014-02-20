@@ -75,6 +75,7 @@ void Graph::send_packets(Node* node, Node* prev)
                 p->set_source_node(dest);
                 p->set_destination_node(src);
             }
+            p->
             node->packets.push_back(p);
             p->set_time(links[i]->get_weight());
             p->set_packet_type(ACK);
