@@ -21,7 +21,18 @@ Node* Graph::add_node(QString name, int x, int y, int id)
     QObject::connect(node->get_q_object(), SIGNAL(press_and_hold_node(QString)), this, SLOT(press_and_hold_node(QString)));
     QObject::connect(node->get_q_object(), SIGNAL(show_routing_table(QString)), this, SLOT(show_routing_table(QString)));
     node_pool.push_back(node);
+    update_algorithm(0);
     return node;
+}
+
+void Graph::update_algorithm(int alg_id)
+{
+    std::vector<Node*>::iterator iter;
+    for (iter = node_pool.begin(); iter != node_pool.end(); iter++)
+    {
+        Node *tmp = *iter;
+        tmp->set_alg(alg_id);
+    }
 }
 
 
@@ -41,8 +52,8 @@ void Graph::send_packets(Node* node, Node* prev)
     *remove the comments to force the method to use node2 as the origin and
     * and node1 as the prev node
     */
-    //node = get_node_by_name("node2");
-    //prev = get_node_by_name("node1");
+    node = get_node_by_name("node2");
+    prev = get_node_by_name("node1");
     //If the passed node is the source it creates a packet for every link the node has
     if(node->is_source()==true){
         //Get All links lined to this node
@@ -54,9 +65,17 @@ void Graph::send_packets(Node* node, Node* prev)
             Node* src = links[i]->get_source();
             Node* dest = links[i]->get_node2();
             Packet *p = new Packet();
-            p->create_packet("packet",panel,engine);
-            p->set_source_node(src);
-            p->set_destination_node(dest);
+            p->create_packet("packet" + QString::number(i+1),panel,engine);
+            if(src->get_id() == node->get_id())
+            {
+                p->set_source_node(src);
+                p->set_destination_node(dest);
+            }
+            else{
+                p->set_source_node(dest);
+                p->set_destination_node(src);
+            }
+            node->packets.push_back(p);
             p->set_time(links[i]->get_weight());
             p->set_packet_type(ACK);
             packet_pool.push_back(p);
@@ -80,7 +99,7 @@ void Graph::send_packets(Node* node, Node* prev)
             {
                 Packet *p = new Packet();
                 p->create_packet("packet",panel,engine);
-
+                src->packets.push_back(p);
                 /*Flips the "source" of the packets to make sure it starts
                  * on the current node because it could spawn
                  * on the other node of the link due to the order in which
@@ -113,7 +132,6 @@ void Graph::destroy_packets(){
 
 Node* Graph::get_source()
 {
-
     std::vector<Node*>::iterator iter;
     for (iter = node_pool.begin(); iter!=node_pool.end(); iter++)
     {
@@ -121,6 +139,7 @@ Node* Graph::get_source()
         if (n1->is_source())
             return n1;
     }
+    return NULL;
 }
 
 std::vector<Link*> Graph::get_link_from_node_id(int nodeID)
@@ -174,6 +193,8 @@ int Graph::add_link(Node *node1, Node *node2, int weight)
     // n is a child node
     // Add children and weight to the link
     //lnk->addChildren(node1,node2,weight);
+    node1->add_link(lnk);
+    node2->add_link(lnk);
     link_pool.push_back(lnk);
     // Return 0 for a normal return
     return 0;
@@ -329,4 +350,9 @@ void Graph::show_routing_table(QString node_name)
 
 }
 
+void Graph::create_node()
+{
+    qDebug() << "Created Node";
+    add_node("default",350,200,++node_id);
+}
 

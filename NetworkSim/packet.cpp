@@ -41,6 +41,11 @@ std::pair<int,int> location(Node* node){
     return loc;
 }
 
+QString Packet::get_name()
+{
+    return this->name;
+}
+
 void Packet::set_source_node(Node* node)
 {   //assign the source node
     source_node = node;
@@ -48,6 +53,7 @@ void Packet::set_source_node(Node* node)
     QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
     item->setProperty("x", loc.first+25);
     item->setProperty("y", loc.second+25);
+    QObject::connect(this->pac_obj, SIGNAL(dest_reached(QString)), this->source_node,SLOT(send_pack(QString)),Qt::UniqueConnection);
 
 }
 
@@ -55,7 +61,7 @@ void Packet::set_destination_node(Node* node)
 {  //assign the destination node
     destination_node = node;
     update_dest_pos(node);
-    QObject::connect(pac_obj,SIGNAL(process_packet()), node->get_q_object(),SLOT(process_packet()));
+    QObject::connect(this->source_node,SIGNAL(sent_pack(Packet*,int)),this->destination_node,SLOT(process_packet(Packet*,int)),Qt::UniqueConnection);
 }
 
 double Packet::get_time()
@@ -89,7 +95,8 @@ void Packet::create_packet(QString name, QObject *main_panel, QQmlApplicationEng
     QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
     // Set the parent as the main_panel (this changes when added to a link)
     item->setParentItem(qobject_cast<QQuickItem*>(main_panel));
-    item->setProperty("name", name);
+    item->setProperty("pack_name", name);
+    this->name = name;
 }
 
 void Packet::update_dest_pos(Node *node)

@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
 
-    signal send()
+    signal dest_reached(string name)
 
     width: 50
     height: 50
@@ -13,8 +13,7 @@ Item {
     property int type
     property string state
     property int timer
-
-    signal reached_dest(bool bool)
+    property string pack_name
 
     Rectangle {
         id: packet
@@ -27,14 +26,16 @@ Item {
             anchors.fill: parent
             onClicked:{
                 console.log("clicked")
-                animation.running = true
+                animation.start()
 
             }
         }
+
         ParallelAnimation{
             id:animation
 
             PropertyAnimation {
+                id: x_anim
                 target: packet
                 property: "x"
                 to: dest_x-x
@@ -47,7 +48,7 @@ Item {
                 to: dest_y-y
                 duration: timer
             }
-
+            onStopped: dest_reached(pack_name)
 
         }
 

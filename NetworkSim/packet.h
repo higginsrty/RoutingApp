@@ -28,6 +28,8 @@
     double get_time();
     void set_time(double t);
     void create_packet(QString name, QObject *main_panel, QQmlApplicationEngine *engine);
+    void set_next_hop(Node *hop);
+    QString get_name();
     /*
      void set_dvr_table(std::vector<Dv> dvr_table);
      void add_dvr_entry(Node* destination_node, int cost);
@@ -43,11 +45,13 @@ private:
     PacketType type;
     Node* source_node;
     Node* destination_node;
+    Node* next_hop;
     double time;
     int flood_flag;
     int x,y;
     QObject *pac_obj;
     //std::vector<Dv dvr_table;
+    QString name;
 
  signals:
 

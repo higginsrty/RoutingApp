@@ -61,3 +61,8 @@ void Model::step_sim()
 {
     qDebug() << "Step_sim";
 }
+
+void Model::create_node()
+{
+    graph->create_node();
+}

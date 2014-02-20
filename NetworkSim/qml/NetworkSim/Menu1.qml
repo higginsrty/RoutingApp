@@ -4,6 +4,8 @@ Item {
     id: menu
     z:50
 
+    signal create_node()
+
     Image {
         anchors.fill: parent
         anchors.bottom: parent.bottom
@@ -71,7 +73,7 @@ Item {
             x: add_node.x
             y: add_node.y
             onPressAndHold: {
-                console.log("Added a Node")
+                create_node()
             }
         }
 

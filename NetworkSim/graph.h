@@ -24,13 +24,14 @@ public:
 
     void send_packets(Node *node, Node *prev);
     void destroy_packets();
-    bool update_algorithm(int alg_id);
+    void update_algorithm(int alg_id);
 
     void change_to_flooding();
     void change_to_cbt();
     void change_to_dv();
     void change_to_ls();
     Node* get_source();
+    void create_node();
 
 private:
     QObject *panel;
@@ -40,6 +41,7 @@ private:
     std::vector<Packet*> packet_pool;
     void update_dests(Node *node);
     void update_source_packet_pos(Node *node);
+    int node_id = 0;
 
 signals:
 

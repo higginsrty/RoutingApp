@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
     main_graph->add_link(n1, n3, 200);
     main_graph->add_link(n1, n4, 800);
     main_graph->add_link(n2, n5, 1600);
+    n2->set_source(true);
 
     return app.exec();
 }
@@ -70,5 +71,5 @@ void connect_model_actionbar(QObject* root, Model *model)
 
 void connect_model_menu(QObject *menu, Model *model)
 {
-
+    QObject::connect(menu, SIGNAL(create_node()), model, SLOT(create_node()));
 }

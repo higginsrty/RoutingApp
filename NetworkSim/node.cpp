@@ -40,28 +40,49 @@ int Node::process_packet(Packet *packet){
 
 */
 
-void Node::process_packet()
+void Node::send_pack(QString name)
 {
-    int number_of_links;
-    link connected_link;
-    std::stack<packet> packet_copies;
+    std::vector<Packet*>::iterator iter;
+    for (iter = packets.begin(); iter != packets.end(); iter++)
+    {
+        Packet *pack = *iter;
+        if (pack->get_name().compare(name) == 0) {
+            emit sent_pack(pack, pack->get_destination_node()->get_id());
+            break;
+        }
+    }
 
-    //get the number of links connected
-    number_of_links = links_stack.size()
+}
 
-    //create that number copy of packets
-      for ( int x = 0; x < number_of_links-1; x++ ) {
-        packet_copies.push(packet.get_packet_type());
-      }
+void Node::process_packet(Packet *pack, int node_dest_id)
+{
+    if (this->node_id != node_dest_id)
+        return;
+    std::vector<Link*>::iterator iter;
+    switch (this->alg_flag) {
+    case 0:
+        qDebug() << "alg = flood";
+        break;
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    default:
+        break;
+    }
 
-    //forward each packet to links
-      for (int x = 0; x < number_of_links; x++){
-          connected_link = links_stack.pop();
-          //forward packet down that link
-          //if link = recent link, don't forward
+}
 
-      }
-    qDebug() << "Process Packets";
+void Node::add_link(Link *lnk)
+{
+    connections.push_back(lnk);
+}
+
+void Node::set_alg(int alg)
+{
+    this->alg_flag = alg;
 }
 
 QString Node::get_name()
@@ -87,6 +108,7 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
     this->name = name;
     rt = new FloodingRT();
     routing_table = new RoutingTable();
+    source = false;
 }
 
 

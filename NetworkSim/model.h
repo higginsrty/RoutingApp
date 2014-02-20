@@ -27,6 +27,7 @@ public slots:
     void resume_sim();
     void step_sim();
     void reset_sim();
+    void create_node();
 };
 
 #endif // MODEL_H

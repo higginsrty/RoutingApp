@@ -5,6 +5,7 @@ Link::Link(QQuickItem *parent) :
 {
 }
 
+
 void Link::addLink(QString name, int weight, Node *node1, Node *node2, QObject *panel, QQmlApplicationEngine *engine) {
     // Loading the Link QML file
     QQmlComponent component(engine,QUrl("qrc:/qml_files/link.qml"));

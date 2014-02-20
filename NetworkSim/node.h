@@ -18,7 +18,7 @@ class Node : public QQuickItem
 {
     Q_OBJECT
 
-    bool packet_reached_destination = false; //change to T if it has
+    int packet_reached_destination = 0; //change to 1 if it has
 
 public:
     int x,y;
@@ -50,9 +50,10 @@ public:
     std::vector<Packet> get_update_packets();
     */
 
-    Packet *p1;
-    //int process_packet(Packet *packet);
-    // int process_packet(int node_reached_destination);
+    std::vector<Packet*> packets; // All of the packets created by this node
+
+    void set_alg(int alg);
+    void add_link(Link *lnk);
 
 private:
     int node_id;
@@ -62,17 +63,20 @@ private:
     FloodingRT *rt;
     RoutingTable *routing_table;
     std::vector<Packet*> update_packets;
-    std::stack<packet> links_stack;
     bool process_dv_packet(Packet *packet);
     void send_update_packets(double weight);
+    int alg_flag; // 0 = Flooding; 1 = DVRP; 2 = LSR; 3 = CBT
+
+    std::vector<Link*> connections;
+
 
 
 signals:
+    void sent_pack(Packet *pack, int node_dest_id);
 
 public slots:
-    void reached_dest(bool);
-    void process_packet();
-
+    void send_pack(QString name);
+    void process_packet(Packet *pack, int node_dest_id);
 };
 
 #endif // NODE_H
