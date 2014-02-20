@@ -40,9 +40,28 @@ int Node::process_packet(Packet *packet){
 
 */
 
-void Node::process_packet(int node_reached_destination)
+void Node::process_packet()
 {
+    int number_of_links;
+    link connected_link;
+    std::stack<packet> packet_copies;
 
+    //get the number of links connected
+    number_of_links = links_stack.size()
+
+    //create that number copy of packets
+      for ( int x = 0; x < number_of_links-1; x++ ) {
+        packet_copies.push(packet.get_packet_type());
+      }
+
+    //forward each packet to links
+      for (int x = 0; x < number_of_links; x++){
+          connected_link = links_stack.pop();
+          //forward packet down that link
+          //if link = recent link, don't forward
+
+      }
+    qDebug() << "Process Packets";
 }
 
 QString Node::get_name()

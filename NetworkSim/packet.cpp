@@ -55,6 +55,7 @@ void Packet::set_destination_node(Node* node)
 {  //assign the destination node
     destination_node = node;
     update_dest_pos(node);
+    QObject::connect(pac_obj,SIGNAL(process_packet()), node->get_q_object(),SLOT(process_packet()));
 }
 
 double Packet::get_time()

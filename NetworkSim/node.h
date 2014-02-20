@@ -18,7 +18,7 @@ class Node : public QQuickItem
 {
     Q_OBJECT
 
-    int packet_reached_destination = 0; //change to 1 if it has
+    bool packet_reached_destination = false; //change to T if it has
 
 public:
     int x,y;
@@ -62,6 +62,7 @@ private:
     FloodingRT *rt;
     RoutingTable *routing_table;
     std::vector<Packet*> update_packets;
+    std::stack<packet> links_stack;
     bool process_dv_packet(Packet *packet);
     void send_update_packets(double weight);
 
@@ -69,7 +70,9 @@ private:
 signals:
 
 public slots:
-    void process_packet(int node_reached_destination);
+    void reached_dest(bool);
+    void process_packet();
+
 };
 
 #endif // NODE_H
