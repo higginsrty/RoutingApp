@@ -6,6 +6,7 @@
 class Link;
 class Node;
 class Packet;
+class QmlDocument;
 
 class Graph : public QQuickItem
 {
@@ -44,6 +45,7 @@ private:
     int node_id = 0;
 
 signals:
+     void animatePackets();
 
 public slots:
     void update_node_position(qreal x, qreal y, QString string);

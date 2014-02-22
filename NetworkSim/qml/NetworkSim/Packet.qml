@@ -1,9 +1,8 @@
 import QtQuick 2.0
 
 Item {
-
+    id:master
     signal dest_reached(string name)
-
     width: 50
     height: 50
     z: 20
@@ -14,43 +13,62 @@ Item {
     property string state
     property int timer
     property string pack_name
+    property bool animate
 
+    animate: false
+    function animate(){
+            animation.start();
+    }
+
+    function pause(){
+        animation.pause();
+    }
+
+    function resume(){
+        animation.resume();
+    }
+
+    ParallelAnimation{
+         id:animation
+
+         PropertyAnimation {
+             target: packet
+             property: "x"
+             to: dest_x-x
+             duration: timer
+         }
+
+         PropertyAnimation{
+             target: packet
+             property: "y"
+             to: dest_y-y
+             duration: timer
+         }
+         onStopped: dest_reached(pack_name)
+
+     }
     Rectangle {
         id: packet
         state: "ACK"
-
         width: parent.width
         height: parent.height
         radius: width*.5
-        MouseArea{
+
+       MouseArea{
             anchors.fill: parent
             onClicked:{
                 console.log("clicked")
-                animation.start()
-
+                //packet.animate();
+                animation.start();
             }
         }
 
-        ParallelAnimation{
-            id:animation
 
-            PropertyAnimation {
-                id: x_anim
-                target: packet
-                property: "x"
-                to: dest_x-x
-                duration: timer
-            }
 
-            PropertyAnimation{
-                target: packet
-                property: "y"
-                to: dest_y-y
-                duration: timer
-            }
-            onStopped: dest_reached(pack_name)
 
-        }
+
+
+        //parent.animate: true ? animation.start() :  null
 
         states: [
             State {

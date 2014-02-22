@@ -19,9 +19,10 @@
     Node* get_destination_node();
     void set_destination_node(Node* node);
     void update_dest_pos(Node* node);
-
+    void set_ttl(int ttl);
+    int get_ttl();
+    void animate();
     std::pair<int,int> source_loc(Node* node);
-
     int get_flood_flag();
     void set_flood_flag(int flag);
     QObject* get_q_object();
@@ -47,6 +48,7 @@ private:
     Node* destination_node;
     Node* next_hop;
     double time;
+    int ttl;
     int flood_flag;
     int x,y;
     QObject *pac_obj;

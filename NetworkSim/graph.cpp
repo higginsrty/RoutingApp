@@ -52,8 +52,8 @@ void Graph::send_packets(Node* node, Node* prev)
     *remove the comments to force the method to use node2 as the origin and
     * and node1 as the prev node
     */
-    node = get_node_by_name("node2");
-    prev = get_node_by_name("node1");
+    //node = get_node_by_name("node2");
+    //prev = get_node_by_name("node1");
     //If the passed node is the source it creates a packet for every link the node has
     if(node->is_source()==true){
         //Get All links lined to this node
@@ -75,13 +75,17 @@ void Graph::send_packets(Node* node, Node* prev)
                 p->set_source_node(dest);
                 p->set_destination_node(src);
             }
-            p->
             node->packets.push_back(p);
             p->set_time(links[i]->get_weight());
             p->set_packet_type(ACK);
+            p->set_ttl(node_pool.size());
             packet_pool.push_back(p);
             qDebug()<< "Packet" << i+1 << "Created...";
+
+
+            p->animate();
         }
+
     }
     /*If the node is not the source send a packet to every node
     *expect the node it recieved the packet from

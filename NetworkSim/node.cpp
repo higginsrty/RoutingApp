@@ -48,6 +48,7 @@ void Node::send_pack(QString name)
         Packet *pack = *iter;
         if (pack->get_name().compare(name) == 0) {
             emit sent_pack(pack, pack->get_destination_node()->get_id());
+            packets.erase(iter);
             break;
         }
     }
@@ -59,9 +60,33 @@ void Node::process_packet(Packet *pack, int node_dest_id)
     if (this->node_id != node_dest_id)
         return;
     std::vector<Link*>::iterator iter;
+    int ttl = pack->get_ttl();
     switch (this->alg_flag) {
     case 0:
         qDebug() << "alg = flood";
+
+        if(ttl == 0)
+            break;
+        for (int i=0; i<connections.size();i++)
+        {
+            Packet *p = new Packet();
+            p->create_packet("packets",panel,engine);
+            qDebug() << "Making Packet";
+            p->set_source_node(this);
+            qDebug() << "Setting Source";
+            Node* temp = connections[i]->get_source();
+            qDebug() << temp->get_name();
+            if(temp->get_id() == this->get_id()){
+                p->set_destination_node(connections[i]->get_node2());
+            }
+            else
+                 p->set_destination_node(connections[i]->get_source());
+            p->set_time(connections[i]->get_weight());
+            qDebug() << p->get_ttl();
+            packets.push_back(p);
+            p->animate();
+
+        }
         break;
     case 1:
         break;
@@ -109,6 +134,8 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
     rt = new FloodingRT();
     routing_table = new RoutingTable();
     source = false;
+    panel = main_panel;
+    this->engine = engine;
 }
 
 

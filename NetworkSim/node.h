@@ -56,6 +56,8 @@ public:
     void add_link(Link *lnk);
 
 private:
+    QObject *panel;
+    QQmlApplicationEngine *engine;
     int node_id;
     QString name;
     bool source;

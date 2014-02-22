@@ -50,12 +50,17 @@ int main(int argc, char *argv[])
     Node *n3 = main_graph->add_node("node3", 550, 400, 20);
     Node *n4 = main_graph->add_node("node4", 500, 50, 27);
     Node *n5 = main_graph->add_node("node5", 600, 250, 30);
-    main_graph->add_link(n1, n2, 100);
-    main_graph->add_link(n2, n3, 120);
-    main_graph->add_link(n1, n3, 200);
-    main_graph->add_link(n1, n4, 800);
+    Node *n6 = main_graph->add_node("node6", 400, 250, 31);
+    Node *n7 = main_graph->add_node("node7", 300, 400, 2);
+    main_graph->add_link(n1, n2, 2000);
+    main_graph->add_link(n2, n3, 1200);
+    main_graph->add_link(n1, n3, 2000);
+    main_graph->add_link(n1, n4, 300);
     main_graph->add_link(n2, n5, 1600);
-    n2->set_source(true);
+    main_graph->add_link(n5, n7, 1400);
+    main_graph->add_link(n3, n5, 1600);
+    main_graph->add_link(n5, n6, 1400);
+    n1->set_source(true);
 
     return app.exec();
 }

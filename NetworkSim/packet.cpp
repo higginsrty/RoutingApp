@@ -46,6 +46,11 @@ QString Packet::get_name()
     return this->name;
 }
 
+void Packet::animate()
+{
+    QMetaObject::invokeMethod(pac_obj, "animate", Qt::DirectConnection );
+}
+
 void Packet::set_source_node(Node* node)
 {   //assign the source node
     source_node = node;
@@ -79,6 +84,14 @@ void Packet::set_time(double t)
 Node* Packet::get_source_node()
 {
     return source_node;
+}
+
+void Packet::set_ttl(int ttl){
+    this->ttl = ttl;
+}
+
+int Packet::get_ttl(){
+    return ttl;
 }
 
 Node* Packet::get_destination_node()
