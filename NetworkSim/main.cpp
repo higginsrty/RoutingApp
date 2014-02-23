@@ -51,11 +51,11 @@ int main(int argc, char *argv[])
     Node *n4 = main_graph->add_node("node4", 500, 50, 27);
     Node *n5 = main_graph->add_node("node5", 600, 250, 30);
     Node *n6 = main_graph->add_node("node6", 400, 250, 31);
-    Node *n7 = main_graph->add_node("node7", 300, 400, 2);
+    Node *n7 = main_graph->add_node("node7", 300, 400, 21);
     main_graph->add_link(n1, n2, 2000);
     main_graph->add_link(n2, n3, 1200);
     main_graph->add_link(n1, n3, 2000);
-    main_graph->add_link(n1, n4, 300);
+    main_graph->add_link(n1, n4, 1250);
     main_graph->add_link(n2, n5, 1600);
     main_graph->add_link(n5, n7, 1400);
     main_graph->add_link(n3, n5, 1600);

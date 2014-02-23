@@ -16,6 +16,7 @@ public:
     void set_graph(Graph &g);
 
 private:
+    bool is_paused;
     QObject *main_panel;
     Graph *graph;
 

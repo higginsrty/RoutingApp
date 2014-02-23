@@ -23,10 +23,12 @@ public:
     bool update_link_weight(Link* lkn, int weight);
     bool update_link_weight(Node *node1, Node *node2, int weight);
 
-    void send_packets(Node *node, Node *prev);
     void destroy_packets();
-    void update_algorithm(int alg_id);
+    void pause_animation();
+    void resume_animation();
+    void start_animation();
 
+    void update_algorithm(int alg_id);
     void change_to_flooding();
     void change_to_cbt();
     void change_to_dv();
@@ -35,6 +37,8 @@ public:
     void create_node();
 
 private:
+    int time;
+    QTimer *timer;
     QObject *panel;
     QQmlApplicationEngine *engine;
     std::vector<Link*> link_pool;
@@ -52,6 +56,7 @@ public slots:
     void press_and_hold_node(QString node_name);
     void destroy_dialog();
     void show_routing_table(QString node_name);
+    void send_packets();
 };
 
 #endif // GRAPH_H

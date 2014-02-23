@@ -11,6 +11,7 @@
 #include <QQuickView>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QTimer>
 
 enum PacketType {HELLO, ACK, DATA};
 

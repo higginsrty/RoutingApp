@@ -4,7 +4,7 @@
 Model::Model(QQuickItem *parent) :
     QQuickItem(parent)
 {
-
+    is_paused = false;
 }
 
 int Model::set_main_panel(QObject *main_panel)
@@ -28,38 +28,46 @@ void Model::start_sim()
      *
      * Multicasting has "groups"
      */
-    qDebug()<<"Running...";
-    Node *source = graph->get_source();
-    qDebug() << "Source Fetched...";
-    graph->send_packets(source, NULL);
+    graph->start_animation();
 }
 
 void Model::reset_sim()
 {
-    qDebug() << "reset";
-    graph->destroy_packets();
+    if (is_paused)
+        graph->destroy_packets();
+    else
+    {
+        graph->pause_animation();
+        graph->destroy_packets();
+    }
 }
 
 void Model::pause_sim()
 {
-    //graph->pause();
     /*
      * in the graph, it is tracking where the packets are
      * And this will stop all animation and store how much time is left
      * in each individual animation (its most generally going to be unique to every packet)
      *
      */
-    qDebug() << "paused";
+    if (is_paused)
+        return;
+    is_paused = true;
+    graph->pause_animation();
 }
 
 void Model::resume_sim()
 {
-    qDebug() << "resuming";
+    if (is_paused)
+    {
+        is_paused = false;
+        graph->resume_animation();
+    }
 }
 
 void Model::step_sim()
 {
-    qDebug() << "Step_sim";
+    qDebug() << "Step sim";
 }
 
 void Model::create_node()

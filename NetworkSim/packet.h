@@ -9,7 +9,7 @@
  public:
     //packet type-> hello or acknowledgement.. should we add "Data Packet Type"?
     Packet(QQuickItem *parent = 0);
-
+    ~Packet();
     PacketType get_packet_type();
     void set_packet_type(PacketType type);
 
@@ -22,6 +22,8 @@
     void set_ttl(int ttl);
     int get_ttl();
     void animate();
+    void pause();
+    void resume();
     std::pair<int,int> source_loc(Node* node);
     int get_flood_flag();
     void set_flood_flag(int flag);

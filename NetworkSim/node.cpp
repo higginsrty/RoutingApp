@@ -46,6 +46,8 @@ void Node::send_pack(QString name)
     for (iter = packets.begin(); iter != packets.end(); iter++)
     {
         Packet *pack = *iter;
+        if (pack->get_ttl() == 0)
+            continue;
         if (pack->get_name().compare(name) == 0) {
             emit sent_pack(pack, pack->get_destination_node()->get_id());
             packets.erase(iter);
@@ -53,6 +55,14 @@ void Node::send_pack(QString name)
         }
     }
 
+}
+
+void Node::switch_source_dest(Packet *pack)
+{
+    Node *n1 = pack->get_source_node();
+    Node *n2 = pack->get_destination_node();
+    pack->set_source_node(n2);
+    pack->set_destination_node(n1);
 }
 
 void Node::process_packet(Packet *pack, int node_dest_id)
@@ -63,29 +73,33 @@ void Node::process_packet(Packet *pack, int node_dest_id)
     int ttl = pack->get_ttl();
     switch (this->alg_flag) {
     case 0:
-        qDebug() << "alg = flood";
-
-        if(ttl == 0)
-            break;
-        for (int i=0; i<connections.size();i++)
+        if (ttl == 0) {
+            delete pack;
+            return;
+        }
+        for (iter = connections.begin(); iter != connections.end();iter++)
         {
+            Link *lnk = *iter;
             Packet *p = new Packet();
             p->create_packet("packets",panel,engine);
-            qDebug() << "Making Packet";
             p->set_source_node(this);
-            qDebug() << "Setting Source";
-            Node* temp = connections[i]->get_source();
-            qDebug() << temp->get_name();
+            Node* temp = lnk->get_source();
             if(temp->get_id() == this->get_id()){
-                p->set_destination_node(connections[i]->get_node2());
+                p->set_destination_node(lnk->get_node2());
             }
             else
-                 p->set_destination_node(connections[i]->get_source());
-            p->set_time(connections[i]->get_weight());
-            qDebug() << p->get_ttl();
+                 p->set_destination_node(temp);
+            // Don't send packets to your source node!
+            if (pack->get_source_node()->get_id() == p->get_destination_node()->get_id()) {
+                delete p;
+                delete pack;
+                continue;
+            }
+            p->set_time(lnk->get_weight());
+            p->set_ttl(ttl-1);
             packets.push_back(p);
+            qDebug() << p->get_ttl();
             p->animate();
-
         }
         break;
     case 1:
@@ -171,11 +185,25 @@ int Node::get_y()
 
 void Node::set_x(int x)
 {
+    std::vector<Packet*>::iterator iter;
+    for (iter = packets.begin(); iter != packets.end(); iter++)
+    {
+        Packet *p = *iter;
+        if (int pack_x = p->get_q_object()->property("x") == x)
+            p->get_q_object()->setProperty("x",x);
+    }
     this->x = x;
 }
 
 void Node::set_y(int y)
 {
+    std::vector<Packet*>::iterator iter;
+    for (iter = packets.begin(); iter != packets.end(); iter++)
+    {
+        Packet *p = *iter;
+        if (p->get_q_object()->property("y") == y)
+            p->get_q_object()->setProperty("y",y);
+    }
     this->y = y;
 }
 

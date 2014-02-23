@@ -6,6 +6,11 @@ Packet::Packet(QQuickItem *parent) :
 {
 }
 
+Packet::~Packet()
+{
+    pac_obj->deleteLater();
+}
+
 QObject* Packet::get_q_object()
 {
     return pac_obj;
@@ -49,6 +54,16 @@ QString Packet::get_name()
 void Packet::animate()
 {
     QMetaObject::invokeMethod(pac_obj, "animate", Qt::DirectConnection );
+}
+
+void Packet::pause()
+{
+    QMetaObject::invokeMethod(pac_obj, "pause", Qt::DirectConnection );
+}
+
+void Packet::resume()
+{
+    QMetaObject::invokeMethod(pac_obj, "resume", Qt::DirectConnection );
 }
 
 void Packet::set_source_node(Node* node)

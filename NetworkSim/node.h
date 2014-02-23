@@ -68,7 +68,7 @@ private:
     bool process_dv_packet(Packet *packet);
     void send_update_packets(double weight);
     int alg_flag; // 0 = Flooding; 1 = DVRP; 2 = LSR; 3 = CBT
-
+    void switch_source_dest(Packet *pack);
     std::vector<Link*> connections;
 
 
