@@ -15,7 +15,7 @@
 
     Node* get_source_node();
     void set_source_node(Node* node);
-
+    void set_name(QString name);
     Node* get_destination_node();
     void set_destination_node(Node* node);
     void update_dest_pos(Node* node);
@@ -54,7 +54,7 @@ private:
     int flood_flag;
     int x,y;
     QObject *pac_obj;
-    //std::vector<Dv dvr_table;
+    //std::vector<Dv dvr_table>;
     QString name;
 
  signals:

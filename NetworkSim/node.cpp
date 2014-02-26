@@ -42,27 +42,37 @@ int Node::process_packet(Packet *packet){
 
 void Node::send_pack(QString name)
 {
+    qDebug() << "Sent Packet" + name;
     std::vector<Packet*>::iterator iter;
     for (iter = packets.begin(); iter != packets.end(); iter++)
     {
         Packet *pack = *iter;
-        if (pack->get_ttl() == 0)
-            continue;
         if (pack->get_name().compare(name) == 0) {
             emit sent_pack(pack, pack->get_destination_node()->get_id());
-            packets.erase(iter);
             break;
         }
     }
-
 }
 
-void Node::switch_source_dest(Packet *pack)
+void Node::remove_packet(Packet *pack)
 {
-    Node *n1 = pack->get_source_node();
-    Node *n2 = pack->get_destination_node();
-    pack->set_source_node(n2);
-    pack->set_destination_node(n1);
+    std::vector<Packet*>::iterator iter;
+    for (iter = packets.begin(); iter != packets.end(); )
+    {
+        try{
+        Packet *p1 = *iter;
+        if (pack->get_name().compare(p1->get_name()) == 0)
+        {
+            iter = packets.erase(iter);
+            delete pack;
+            break;
+        }
+        else
+            iter++;
+        } catch (...) {
+           qDebug() << "Error";
+        }
+    }
 }
 
 void Node::process_packet(Packet *pack, int node_dest_id)
@@ -73,34 +83,39 @@ void Node::process_packet(Packet *pack, int node_dest_id)
     int ttl = pack->get_ttl();
     switch (this->alg_flag) {
     case 0:
-        if (ttl == 0) {
-            delete pack;
+        if (ttl <= 0) {
+            pack->get_source_node()->remove_packet(pack);
             return;
         }
         for (iter = connections.begin(); iter != connections.end();iter++)
         {
             Link *lnk = *iter;
+            // Create new packet
             Packet *p = new Packet();
-            p->create_packet("packets",panel,engine);
+            p->create_packet(lnk->get_node2()->get_name() + "_"+ lnk->get_source()->get_name() + "_packet",panel,engine);
+            p->set_packet_type(DATA);
+            // Set the source node to be the current node
             p->set_source_node(this);
+            // Figuring out what the destination is
             Node* temp = lnk->get_source();
+            // If the current node is the source of the link, the destination is node 2 of the link
             if(temp->get_id() == this->get_id()){
                 p->set_destination_node(lnk->get_node2());
             }
+            // Else, the source of the link is the destination
             else
                  p->set_destination_node(temp);
             // Don't send packets to your source node!
             if (pack->get_source_node()->get_id() == p->get_destination_node()->get_id()) {
                 delete p;
-                delete pack;
                 continue;
             }
             p->set_time(lnk->get_weight());
             p->set_ttl(ttl-1);
-            packets.push_back(p);
-            qDebug() << p->get_ttl();
+            add_packet(p);
             p->animate();
         }
+        pack->get_source_node()->remove_packet(pack);
         break;
     case 1:
         break;
@@ -112,6 +127,33 @@ void Node::process_packet(Packet *pack, int node_dest_id)
         break;
     }
 
+}
+
+void Node::add_packet(Packet *pack)
+{
+    try {
+    packets.push_back(pack);
+    } catch(...) {
+        qDebug() << "Error adding packets";
+    }
+
+    if (packets.size() == 1)
+    {
+        return;
+    }
+    std::vector<Packet*>::iterator iter;
+    for (iter = packets.begin(); iter != packets.end(); iter++)
+    {
+        try {
+        Packet *temp = *iter;
+        if (temp->get_name().compare(pack->get_name()) == 0) {
+            qDebug() << "assigning new name";
+            pack->set_name(pack->get_name() + QString::number(std::rand() % 100));
+        }
+        } catch (...) {
+            qDebug() << "Caught an exception";
+        }
+    }
 }
 
 void Node::add_link(Link *lnk)

@@ -47,6 +47,8 @@ private:
     void update_dests(Node *node);
     void update_source_packet_pos(Node *node);
     int node_id = 0;
+    bool started;
+    bool paused;
 
 signals:
      void animatePackets();

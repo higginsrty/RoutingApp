@@ -5,6 +5,8 @@ Graph::Graph(QObject *panel, QQmlApplicationEngine *engine)
     this->panel = panel;
     this->engine = engine;
     time = 5000;
+    started = false;
+    paused = false;
 }
 
 Node* Graph::add_node(QString name, int x, int y, int id)
@@ -42,9 +44,6 @@ void Graph::update_algorithm(int alg_id)
  * and then once the signal slot communication works we can have the signal
  * that the packet was recieved at its destination (node n) and then
  * pass node n to this function and prev = the source of said packet
- * ----------------------------------------------------------
- * SOMETIMES IT BUGS AND SPAWNS THE PACKETS WRONG OR CRASHES
- * ----------------------------------------------------------
  * I have't figured out why it does this yet but simply rerunning fixes it
  */
 void Graph::send_packets()
@@ -70,7 +69,7 @@ void Graph::send_packets()
             p->set_destination_node(src);
         }
         p->set_time(links[i]->get_weight());
-        p->set_packet_type(ACK);
+        p->set_packet_type(HELLO);
         p->set_ttl(node_pool.size());
         node->packets.push_back(p);
         packet_pool.push_back(p);
@@ -81,14 +80,18 @@ void Graph::send_packets()
 
 void Graph::start_animation()
 {
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(send_packets()));
-    timer->singleShot(0,this,SLOT(send_packets()));
-    timer->start(time);
+    if (!started) {
+        started = true;
+        timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(send_packets()));
+        timer->singleShot(0,this,SLOT(send_packets()));
+        timer->start(time);
+    }
 }
 
 void Graph::pause_animation()
 {
+    paused = true;
     timer->stop();
     std::vector<Node*>::iterator iter;
     for (iter = node_pool.begin(); iter != node_pool.end(); iter++)
@@ -105,6 +108,9 @@ void Graph::pause_animation()
 
 
 void Graph::destroy_packets(){
+    started = false;
+    paused = false;
+    delete timer;
     std::vector<Node*>::iterator iter;
     for (iter = node_pool.begin(); iter != node_pool.end(); iter++)
     {
@@ -121,7 +127,8 @@ void Graph::destroy_packets(){
 
 void Graph::resume_animation()
 {
-    timer->singleShot(0,this,SLOT(send_packets()));
+    //timer->singleShot(0,this,SLOT(send_packets()));
+    paused = false;
     timer->start(time);
     std::vector<Node*>::iterator iter;
     for (iter = node_pool.begin(); iter != node_pool.end(); iter++)
@@ -322,7 +329,6 @@ void Graph::show_routing_table(QString node_name)
 
 void Graph::create_node()
 {
-    qDebug() << "Created Node";
     add_node("default",350,200,++node_id);
 }
 

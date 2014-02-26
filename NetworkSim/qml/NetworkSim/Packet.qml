@@ -21,7 +21,8 @@ Item {
     }
 
     function pause(){
-        animation.pause();
+        if (animation.running)
+            animation.pause();
     }
 
     function resume(){
@@ -49,7 +50,7 @@ Item {
      }
     Rectangle {
         id: packet
-        state: "ACK"
+        state: type == 1 ? "ACK" : type == 0 ? "HELLO" : "DATA"
         width: parent.width
         height: parent.height
         radius: width*.5
@@ -63,12 +64,6 @@ Item {
             }
         }
 
-
-
-
-
-
-        //parent.animate: true ? animation.start() :  null
 
         states: [
             State {

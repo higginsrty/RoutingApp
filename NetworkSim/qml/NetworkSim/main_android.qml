@@ -15,6 +15,7 @@ ApplicationWindow {
     signal onResume()
     signal onReset()
     signal onStep()
+    signal showMenu()
 
     toolBar: BorderImage {
         objectName: "tool_bar"

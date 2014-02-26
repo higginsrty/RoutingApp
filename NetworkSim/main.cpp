@@ -4,13 +4,13 @@ void connect_model_actionbar(QObject *action_bar, Model *model);
 void connect_model_menu(QObject *menu, Model *model);
 
 int main(int argc, char *argv[])
-{
+{ try {
     bool android = false;
     QApplication app(argc, argv);
 
 #ifdef Q_OS_ANDROID
     android = true;
-    QQmlApplicationEngine *engine = new QQmlApplicationEngine(QUrl("qrc:/qml_files/main_android.qml"));
+    QQmlApplicationEngine *engine = new QQmlApplicationEngine(QUrl("qrc:/qml_files/main.qml"));
 #else
     QQmlApplicationEngine *engine = new QQmlApplicationEngine(QUrl("qrc:/qml_files/main.qml"));
 #endif
@@ -63,6 +63,12 @@ int main(int argc, char *argv[])
     n1->set_source(true);
 
     return app.exec();
+    }
+    catch (std::exception &e)
+    {
+        qDebug() << e.what();
+    }
+
 }
 
 void connect_model_actionbar(QObject* root, Model *model)

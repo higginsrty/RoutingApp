@@ -9,6 +9,11 @@ Packet::Packet(QQuickItem *parent) :
 Packet::~Packet()
 {
     pac_obj->deleteLater();
+    panel = NULL;
+    engine = NULL;
+    source_node = NULL;
+    destination_node = NULL;
+    next_hop = NULL;
 }
 
 QObject* Packet::get_q_object()
@@ -36,7 +41,7 @@ void Packet::set_packet_type(PacketType type)
 {   //assigns hello or acknowledgement type to packet
     this->type = type;
     QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
-    item->setProperty("type", 1);
+    item->setProperty("type", type);
 }
 
 std::pair<int,int> location(Node* node){
@@ -112,6 +117,13 @@ int Packet::get_ttl(){
 Node* Packet::get_destination_node()
 {
     return destination_node;
+}
+
+void Packet::set_name(QString name)
+{
+    QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
+    item->setProperty("pack_name", name);
+    this->name = name;
 }
 
 void Packet::create_packet(QString name, QObject *main_panel, QQmlApplicationEngine *engine) {

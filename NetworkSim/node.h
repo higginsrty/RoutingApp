@@ -70,6 +70,8 @@ private:
     int alg_flag; // 0 = Flooding; 1 = DVRP; 2 = LSR; 3 = CBT
     void switch_source_dest(Packet *pack);
     std::vector<Link*> connections;
+    void add_packet(Packet *pack);
+    void remove_packet(Packet *pack);
 
 
 
