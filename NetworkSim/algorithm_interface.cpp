@@ -9,9 +9,9 @@ void algorithm_interface::get_destination_nodes(Node *source_node)
 {
     this->source_node = source_node;
     //destination node pool
-    std::vector<Node*> destination_node_pool;
+    //std::vector<Node*> destination_node_pool;
     //get number of nodes in the network
-    int number_of_nodes = link_pool.size();
+    number_of_nodes = node_pool.size();
 
     std::vector<Node*>::iterator iter1;
     for (iter1 = node_pool.begin(); iter1 != node_pool.end(); iter1++) {
@@ -25,7 +25,7 @@ void algorithm_interface::get_destination_nodes(Node *source_node)
 int minimum_distance(int distance[], bool shortest_path_set[])
 {
     //set the minimum value
-    int min = INT_MAX, min_index;
+    min = INT_MAX, min_index;
 
     for (int v = 0; v < number_of_nodes; v++)
     {
@@ -43,11 +43,9 @@ int minimum_distance(int distance[], bool shortest_path_set[])
 void algorithm_interface::dijkstra_algorithm(Node *source_node)
 {//used to calculated the shortest path from source node to each destination node
 
-    //output array will hold the shortest distance from source_node to each node
-    int distance[number_of_nodes];
+    //output array distance[] will hold the shortest distance from source_node to each node
+    //set shortest_path_set[number_of_nodes] to true if the vertex is included in the shortest path
 
-    //set to true if the vertex is included in the shortest path
-    bool shortest_path_set[number_of_nodes];
 
     //pre-set all disstances to INT_MAX and shortestPathSet to false
     for (int i = 0; i < number_of_nodes; i++)
@@ -63,7 +61,7 @@ void algorithm_interface::dijkstra_algorithm(Node *source_node)
     for (int count = 0; count < number_of_nodes-1; count++)
     {
         //pick the minimum distance from the set of nodes not yet processed
-        int u = minimum_distance(distance,shortest_path_set);
+        u = minimum_distance(distance,shortest_path_set);
 
         //mark node as processed
         shortest_path_set[u] = true;
@@ -82,3 +80,17 @@ void algorithm_interface::dijkstra_algorithm(Node *source_node)
 
 }//end of dijkstra's algorithm
 
+void algorithm_interface::routing_table(){
+
+    //destination nodes
+    destination_node_pool[];
+    //corresponding shortest path values
+    distance[];
+
+    for(int w = 0; w < number_of_nodes; w++){
+
+
+
+    }//end of for loop
+
+}//end of routing_table
