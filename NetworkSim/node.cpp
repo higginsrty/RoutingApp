@@ -42,7 +42,6 @@ int Node::process_packet(Packet *packet){
 
 void Node::send_pack(QString name)
 {
-    qDebug() << "Sent Packet" + name;
     std::vector<Packet*>::iterator iter;
     for (iter = packets.begin(); iter != packets.end(); iter++)
     {
@@ -59,7 +58,6 @@ void Node::remove_packet(Packet *pack)
     std::vector<Packet*>::iterator iter;
     for (iter = packets.begin(); iter != packets.end(); )
     {
-        try{
         Packet *p1 = *iter;
         if (pack->get_name().compare(p1->get_name()) == 0)
         {
@@ -69,9 +67,6 @@ void Node::remove_packet(Packet *pack)
         }
         else
             iter++;
-        } catch (...) {
-           qDebug() << "Error";
-        }
     }
 }
 
@@ -131,12 +126,7 @@ void Node::process_packet(Packet *pack, int node_dest_id)
 
 void Node::add_packet(Packet *pack)
 {
-    try {
     packets.push_back(pack);
-    } catch(...) {
-        qDebug() << "Error adding packets";
-    }
-
     if (packets.size() == 1)
     {
         return;
@@ -144,14 +134,10 @@ void Node::add_packet(Packet *pack)
     std::vector<Packet*>::iterator iter;
     for (iter = packets.begin(); iter != packets.end(); iter++)
     {
-        try {
         Packet *temp = *iter;
-        if (temp->get_name().compare(pack->get_name()) == 0) {
-            qDebug() << "assigning new name";
+        if (temp->get_name().compare(pack->get_name()) == 0)
+        {
             pack->set_name(pack->get_name() + QString::number(std::rand() % 100));
-        }
-        } catch (...) {
-            qDebug() << "Caught an exception";
         }
     }
 }
@@ -171,7 +157,8 @@ QString Node::get_name()
     return name;
 }
 
-void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlApplicationEngine *engine) {
+void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlApplicationEngine *engine)
+{
     // Load Node QML file
     QQmlComponent component(engine, QUrl("qrc:/qml_files/node.qml"));
     // Create QObject
@@ -183,6 +170,11 @@ void Node::setup_node(QString name, int x, int y, QObject *main_panel, QQmlAppli
     item->setProperty("x", x);
     item->setProperty("y", y);
     item->setProperty("name", name);
+#ifdef Q_OS_ANDROID
+    item->setProperty("node_size", 100);
+#else
+    item->setProperty("node_size", 50);
+#endif
     this->x = x;
     this->y = y;
     this->node = object;

@@ -51,7 +51,6 @@ void Graph::send_packets()
     Node *node = this->get_source();
     //Get All links lined to this node
     std::vector<Link*> links= get_link_from_node(node);
-    qDebug() << "Links fetched...";
     //Iterate through all the links and make a packet for each one
     for (int i=0; i<links.size();i++)
     {
@@ -73,7 +72,6 @@ void Graph::send_packets()
         p->set_ttl(node_pool.size());
         node->packets.push_back(p);
         packet_pool.push_back(p);
-        qDebug()<< "Packet" << i+1 << "Created...";
         p->animate();
     }
 }
@@ -82,6 +80,7 @@ void Graph::start_animation()
 {
     if (!started) {
         started = true;
+        paused = false;
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(send_packets()));
         timer->singleShot(0,this,SLOT(send_packets()));
@@ -91,6 +90,7 @@ void Graph::start_animation()
 
 void Graph::pause_animation()
 {
+    qDebug() << "Paused Animation";
     paused = true;
     timer->stop();
     std::vector<Node*>::iterator iter;
@@ -106,6 +106,11 @@ void Graph::pause_animation()
     }
 }
 
+void Graph::stop_send_packets()
+{
+    delete this->timer;
+    started = false;
+}
 
 void Graph::destroy_packets(){
     started = false;
@@ -127,7 +132,6 @@ void Graph::destroy_packets(){
 
 void Graph::resume_animation()
 {
-    //timer->singleShot(0,this,SLOT(send_packets()));
     paused = false;
     timer->start(time);
     std::vector<Node*>::iterator iter;
@@ -310,13 +314,16 @@ void Graph::press_and_hold_node(QString node_name)
     QQuickItem *item = qobject_cast<QQuickItem*>(object);
     item->setParentItem(qobject_cast<QQuickItem*>(panel));
     QObject::connect(object,SIGNAL(destroy_dialog(void)),this,SLOT(destroy_dialog(void)));
+    if (started && !paused)
+        this->pause_animation();
     Node* node = get_node_by_name(node_name);
 }
 
 void Graph::destroy_dialog()
 {
+    if (started && paused)
+        this->resume_animation();
     QObject *dialog = panel->findChild<QObject*>("nodeDialog");
-    //QQuickItem *dialog_item = qobject_cast<QQuickItem*>(dialog);
     dialog->deleteLater();
 }
 

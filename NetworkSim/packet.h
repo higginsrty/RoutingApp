@@ -43,6 +43,7 @@
     */
 
 private:
+    int offset;
     QObject *panel;
     QQmlApplicationEngine *engine;
     PacketType type;

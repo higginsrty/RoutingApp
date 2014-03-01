@@ -76,8 +76,8 @@ void Packet::set_source_node(Node* node)
     source_node = node;
     std::pair<int,int> loc = location(node);
     QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
-    item->setProperty("x", loc.first+25);
-    item->setProperty("y", loc.second+25);
+    item->setProperty("x", loc.first+offset);
+    item->setProperty("y", loc.second+offset);
     QObject::connect(this->pac_obj, SIGNAL(dest_reached(QString)), this->source_node,SLOT(send_pack(QString)),Qt::UniqueConnection);
 
 }
@@ -136,6 +136,13 @@ void Packet::create_packet(QString name, QObject *main_panel, QQmlApplicationEng
     // Set the parent as the main_panel (this changes when added to a link)
     item->setParentItem(qobject_cast<QQuickItem*>(main_panel));
     item->setProperty("pack_name", name);
+#ifdef Q_OS_ANDROID
+    item->setProperty("packet_size", 50);
+    offset = 25;
+#else
+    item->setProperty("packet_size", 20);
+    offset = 13;
+#endif
     this->name = name;
 }
 
@@ -143,8 +150,8 @@ void Packet::update_dest_pos(Node *node)
 {
     std::pair<int,int> dest_loc = location(node);
     QQuickItem *item = qobject_cast<QQuickItem*>(pac_obj);
-    item->setProperty("dest_x", dest_loc.first+25);
-    item->setProperty("dest_y", dest_loc.second+25);
+    item->setProperty("dest_x", dest_loc.first+offset);
+    item->setProperty("dest_y", dest_loc.second+offset);
 }
 
 /***The following will need to be adjusted after DVR table is created***

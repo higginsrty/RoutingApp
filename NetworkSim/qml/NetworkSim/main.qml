@@ -15,7 +15,7 @@ ApplicationWindow {
     signal onPause()
     signal onResume()
     signal onReset()
-    signal onStep()
+    signal onStop()
 
 
     menuBar: MenuBar {
@@ -34,8 +34,8 @@ ApplicationWindow {
                 onTriggered: onStart();
             }
             MenuItem {
-                text: qsTr("Step")
-                onTriggered: onStep();
+                text: qsTr("Stop")
+                onTriggered: onStop();
             }
             MenuItem {
                 text: qsTr("Pause")

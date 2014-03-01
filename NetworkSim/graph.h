@@ -35,6 +35,7 @@ public:
     void change_to_ls();
     Node* get_source();
     void create_node();
+    void stop_send_packets();
 
 private:
     int time;

@@ -33,8 +33,10 @@ void Model::start_sim()
 
 void Model::reset_sim()
 {
-    if (is_paused)
+    if (is_paused) {
         graph->destroy_packets();
+        is_paused = false;
+    }
     else
     {
         graph->pause_animation();
@@ -65,9 +67,9 @@ void Model::resume_sim()
     }
 }
 
-void Model::step_sim()
+void Model::stop_sim()
 {
-    qDebug() << "Step sim";
+    graph->stop_send_packets();
 }
 
 void Model::create_node()

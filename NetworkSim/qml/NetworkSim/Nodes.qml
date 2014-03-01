@@ -6,8 +6,9 @@ Item {
     id: node
 
     property string name
-    width: 100
-    height: 100
+    property int node_size: 100
+    width: node_size
+    height: node_size
 
     z: 10
 

@@ -8,7 +8,9 @@ Item{
     property real x2: x2
     property real y2: y2
 
-    z:-1
+    property int link_height: 25
+
+    z:3
 
     Rectangle{
 
@@ -20,7 +22,7 @@ Item{
         property real y2: link.y2
 
         color: "black"
-        height: 25
+        height: link_height
         smooth: true
         antialiasing: true
 

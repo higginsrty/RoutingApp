@@ -3,9 +3,10 @@ import QtQuick 2.0
 Item {
     id:master
     signal dest_reached(string name)
-    width: 50
-    height: 50
-    z: 20
+    property int packet_size: 50
+    width: packet_size
+    height: packet_size
+    z: 5
 
     property int dest_x
     property int dest_y

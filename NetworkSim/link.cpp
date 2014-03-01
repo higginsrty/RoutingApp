@@ -29,6 +29,11 @@ void Link::addLink(QString name, int weight, Node *node1, Node *node2, QObject *
     item->setProperty("x2", x2);
     item->setProperty("y2", y2);
     item->setObjectName(name);
+#ifdef Q_OS_ANDROID
+    item->setProperty("link_height", 25);
+#else
+    item->setProperty("link_height", 10);
+#endif
     this->weight = weight;
     this->link = object;
 }

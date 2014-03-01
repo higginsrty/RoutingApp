@@ -15,8 +15,6 @@ Item{
             height: parent.height
             x: 0
             color: "red"
-
-
         }
 
         Rectangle {

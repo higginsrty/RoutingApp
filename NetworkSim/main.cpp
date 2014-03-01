@@ -77,7 +77,7 @@ void connect_model_actionbar(QObject* root, Model *model)
     QObject::connect(root, SIGNAL(onPause()), model, SLOT(pause_sim()));
     QObject::connect(root, SIGNAL(onResume()), model, SLOT(resume_sim()));
     QObject::connect(root, SIGNAL(onReset()), model, SLOT(reset_sim()));
-    QObject::connect(root, SIGNAL(onStep()), model, SLOT(step_sim()));
+    QObject::connect(root, SIGNAL(onStop()), model, SLOT(stop_sim()));
 }
 
 void connect_model_menu(QObject *menu, Model *model)

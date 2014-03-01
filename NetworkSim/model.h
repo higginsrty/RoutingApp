@@ -26,7 +26,7 @@ public slots:
     void start_sim();
     void pause_sim();
     void resume_sim();
-    void step_sim();
+    void stop_sim();
     void reset_sim();
     void create_node();
 };
