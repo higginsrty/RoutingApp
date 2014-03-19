@@ -16,11 +16,15 @@ public:
     Node* get_node2();
     double get_weight();
     void update_weight(int w);
+    bool get_state();
+    void enable_state();
+    void disable_state();
 
 private:
     Node *node1;
     Node *node2;
     int weight;
+    bool state;
     QObject* link;
 
 signals:

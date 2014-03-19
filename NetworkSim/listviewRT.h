@@ -1,6 +1,6 @@
 #ifndef LISTVIEWRT_H
 #define LISTVIEWRT_H
-
+#include "stdafx.h"
 #include <QObject>
 #include "listviewRT_xmlparser_itemsdata.h"
 #include <QGraphicsScene>
@@ -15,7 +15,7 @@ class QDeclarativeItem;
 
 class listviewRT : public QObject
 {
-    Q_Object
+    Q_OBJECT
 
 public:
     explicit listviewRT_listviewloader(QDeclarativeView *view,QObject *parent = 0);
@@ -34,8 +34,8 @@ private:
     QString iScreeningFileDirPath;
 
 public slots:
-    void createListview()
-    void setNewContext()
+    void createListview();
+    void setNewContext();
     void setNewContextPrevious();
 };
 

@@ -14,7 +14,12 @@ SOURCES += main.cpp \
     link.cpp \
     graph.cpp \
     floodingRT.cpp \
-    routingtable.cpp
+    routingtable.cpp \
+    algorithm_interface.cpp \
+    dvrRT.cpp \
+    lsrt.cpp \
+    listviewRT.cpp \
+    dynamiclist_xmlparser_itemsdata.cpp
 
 PRECOMPILED_HEADER += stdafx.h
 
@@ -29,7 +34,9 @@ OTHER_FILES += \
     qml/NetworkSim/Nodes.qml \
     android/AndroidManifest.xml \
     qml/NetworkSim/FloodingRTItem.qml \
-    qml/NetworkSim/Menu1.qml
+    qml/NetworkSim/Menu1.qml \
+    XMLlistingItem.qml \
+    qml/NetworkSim/DVRroutingTable.qml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -41,7 +48,12 @@ HEADERS += \
     stdafx.h \
     graph.h \
     floodingRT.h \
-    routingtable.h
+    routingtable.h\
+    algorithm_interface.h\
+    dvrRT.h \
+    lsrt.h \
+    listviewRT.h \
+    dynamiclist_xmlparser_itemsdata.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2controlsapplicationviewer/qtquick2controlsapplicationviewer.pri)

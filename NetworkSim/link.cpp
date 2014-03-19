@@ -57,3 +57,15 @@ void Link::update_weight(int w) {
 double Link::get_weight(){
     return weight;
 }
+
+bool Link::get_state(){
+    return state;
+}
+
+void Link::enable_state(){
+    state = true;
+}
+
+void Link::disable_state(){
+    state = false;
+}

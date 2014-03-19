@@ -6,9 +6,11 @@ Item{
     visible: false
     x: 0
     y: 0
+    z:75
     Rectangle {
         anchors.fill: parent
         color: "black"
+
         Rectangle {
             id: address
             width: 100
@@ -42,4 +44,4 @@ Item{
             color: "lightsteelblue"
         }
     }
-}
+
